@@ -47,9 +47,19 @@ O controle de acesso garante que o usuário está registrado na plataforma antes
 ### RF 01 - Cadastro de usuário
 
 __Descrição__
-Eu como usuário não registrado quero poder me registrar para conseguir fazer o Login
+Eu como usuário não registrado quero poder me registrar para conseguir fazer o Login.
 
-__Critérios de aceite__
+Informações para a criação do usuário:
+
+- Nome
+- Email
+- Password
+
+Outras auxiliares:
+
+- Criado em: quando o registro foi feito
+
+#### Critérios de aceite
 
 - **Cenário:** Sucesso
 	- Dado que o usuário está na página de cadastro
