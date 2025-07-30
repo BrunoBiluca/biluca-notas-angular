@@ -15,11 +15,13 @@ export const routes: Routes = [
     path: 'login',
     component: Login,
     pathMatch: 'full',
+    canActivate: [authGuard],
   },
   {
     path: 'signup',
     component: Signup,
     pathMatch: 'full',
+    canActivate: [authGuard],
   },
   {
     path: 'notes',
