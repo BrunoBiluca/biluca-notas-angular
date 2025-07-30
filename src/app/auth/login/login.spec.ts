@@ -66,7 +66,7 @@ describe('Login', () => {
 
     expect(getLoginError(fixture)).toBeNull();
 
-    expect(component.router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(component.router.navigate).toHaveBeenCalledWith(['/notes']);
   });
 });
 

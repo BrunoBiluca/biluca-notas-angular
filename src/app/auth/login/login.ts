@@ -60,6 +60,6 @@ export class Login {
       return;
     }
 
-    this.router.navigate(['/home']);
+    this.router.navigate(['/notes']);
   }
 }

@@ -3,6 +3,7 @@ import { Signup } from './auth/signup/signup';
 import { Login } from './auth/login/login';
 import { Home } from './home/home';
 import { authGuard } from './auth/auth-guard';
+import { Layout } from './shared/layout/layout';
 
 export const routes: Routes = [
   {
@@ -21,9 +22,15 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: 'notes',
     pathMatch: 'full',
-    component: Home,
+    component: Layout,
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: Home,
+      },
+    ]
   },
 ];
