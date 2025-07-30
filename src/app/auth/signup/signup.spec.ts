@@ -3,25 +3,35 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Signup } from './signup';
 import { By } from '@angular/platform-browser';
 import { UserService } from '../user-service';
+import { provideRouter, Router } from '@angular/router';
 
 describe('Signup', () => {
   let component: Signup;
   let fixture: ComponentFixture<Signup>;
   let users: UserService;
+  let router: Router;
 
   beforeEach(async () => {
     users = jasmine.createSpyObj('UserService', ['exists', 'create']);
     (users.exists as jasmine.Spy).and.callFake((username: string) => username === 'existing-user');
 
+    router = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
       imports: [Signup],
-      providers: [{ provide: UserService, useValue: users }]
+      providers: [
+        { provide: UserService, useValue: users },
+        provideRouter([]),
+      ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(Signup);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigate');
   });
 
   it('should create', () => {
@@ -110,6 +120,8 @@ describe('Signup', () => {
     expect(getUsernameError(fixture)).toBeNull();
     expect(getEmailError(fixture)).toBeNull();
     expect(getPasswordError(fixture)).toBeNull();
+
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 });
 

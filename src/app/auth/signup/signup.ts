@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import emailValidator from 'common/emailValidator';
 import { UserService } from '../user-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -56,6 +57,7 @@ export class Signup {
   password = new FormControl('');
   passwordError = signal('');
   userService = inject(UserService);
+  router = inject(Router);
 
   submitSignup() {
     this.usernameError.set('');
@@ -86,10 +88,16 @@ export class Signup {
       this.passwordError.set('Password deve ter pelo menos 6 caracteres');
     }
 
+    if (this.usernameError() || this.emailError() || this.passwordError()) {
+      return;
+    }
+
     this.userService.create({
       username: this.username.value!,
       email: this.email.value!,
       password: this.password.value!,
     });
+
+    this.router.navigate(['/login']);
   }
 }
