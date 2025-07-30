@@ -35,4 +35,31 @@ describe('Signup', () => {
     expect(password).toBeTruthy()
     expect(submitBtn).toBeTruthy();
   });
+
+  it('should display error message when any field is empty', () => {
+    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    submitBtn.click();
+    fixture.detectChanges();
+
+    const usernameError = fixture.nativeElement.querySelector('span[id="username-error"]');
+    const emailError = fixture.nativeElement.querySelector('span[id="email-error"]');
+    const passwordError = fixture.nativeElement.querySelector('span[id="password-error"]');
+
+    expect(usernameError).toBeTruthy();
+    expect(emailError).toBeTruthy();
+    expect(passwordError).toBeTruthy();
+  });
+
+  it('should display error message when email is invalid', () => {
+    const email = fixture.nativeElement.querySelector("input[name='email']");
+    email.value = 'invalid-email';
+    email.dispatchEvent(new Event('input'));
+
+    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    submitBtn.click();
+    fixture.detectChanges();
+
+    const emailError = fixture.nativeElement.querySelector('span[id="email-error"]');
+    expect(emailError).toBeTruthy();
+  });
 });
