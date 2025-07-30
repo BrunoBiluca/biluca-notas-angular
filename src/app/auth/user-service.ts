@@ -11,7 +11,16 @@ export class UserService {
     return !!localStorage.getItem(this.userKey(username));
   }
 
+  get(username: string) {
+    return JSON.parse(localStorage.getItem(this.userKey(username))!);
+  }
+
   create(user: any) {
     localStorage.setItem(this.userKey(user.username), JSON.stringify({created_at: new Date(), ...user}));
+  }
+
+  login(username: string, password: string): boolean {
+    const user = this.get(username);   
+    return user.password === password;
   }
 }

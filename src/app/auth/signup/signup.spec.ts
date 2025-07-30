@@ -15,8 +15,6 @@ describe('Signup', () => {
     users = jasmine.createSpyObj('UserService', ['exists', 'create']);
     (users.exists as jasmine.Spy).and.callFake((username: string) => username === 'existing-user');
 
-    router = jasmine.createSpyObj('Router', ['navigate']);
-
     await TestBed.configureTestingModule({
       imports: [Signup],
       providers: [
