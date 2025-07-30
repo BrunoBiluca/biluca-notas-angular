@@ -43,63 +43,56 @@ describe('Signup', () => {
   });
 
   it('should display error message when any field is empty', () => {
-    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    const submitBtn = getSubmitBtn(fixture);
 
     submitBtn.click();
     fixture.detectChanges();
 
-    const usernameError = fixture.nativeElement.querySelector('span[id="username-error"]');
-    const emailError = fixture.nativeElement.querySelector('span[id="email-error"]');
-    const passwordError = fixture.nativeElement.querySelector('span[id="password-error"]');
-
-    expect(usernameError).toBeTruthy();
-    expect(emailError).toBeTruthy();
-    expect(passwordError).toBeTruthy();
+    expect(getUsernameError(fixture)).toBeTruthy();
+    expect(getEmailError(fixture)).toBeTruthy();
+    expect(getPasswordError(fixture)).toBeTruthy();
   });
 
   it('should display error message when email is invalid', () => {
-    const email = fixture.nativeElement.querySelector("input[name='email']");
+    const email = getEmailInput(fixture);
     email.value = 'invalid-email';
     email.dispatchEvent(new Event('input'));
 
-    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    const submitBtn = getSubmitBtn(fixture);
     submitBtn.click();
     fixture.detectChanges();
 
-    const emailError = fixture.nativeElement.querySelector('span[id="email-error"]');
-    expect(emailError).toBeTruthy();
+    expect(getEmailError(fixture)).toBeTruthy();
   });
 
   it('should display error message when passwork is incorrect', () => {
-    const password = fixture.nativeElement.querySelector("input[name='password']");
+    const password = getPassworkInput(fixture);
     password.value = '123';
     password.dispatchEvent(new Event('input'));
 
-    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    const submitBtn = getSubmitBtn(fixture);
     submitBtn.click();
     fixture.detectChanges();
 
-    const passwordError = fixture.nativeElement.querySelector('span[id="password-error"]');
-    expect(passwordError).toBeTruthy();
+    expect(getPasswordError(fixture)).toBeTruthy();
   });
 
   it('should display error message when username already exists', () => {
-    const username = fixture.nativeElement.querySelector("input[name='username']");
+    const username = getUsernameInput(fixture);
     username.value = 'existing-user';
     username.dispatchEvent(new Event('input'));
 
-    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    const submitBtn = getSubmitBtn(fixture);
     submitBtn.click();
     fixture.detectChanges();
 
-    const usernameError = fixture.nativeElement.querySelector('span[id="username-error"]');
-    expect(usernameError).toBeTruthy();
+    expect(getUsernameError(fixture)).toBeTruthy();
   });
 
   it('should submit valid form and redirect to login', () => {
-    const username = fixture.nativeElement.querySelector("input[name='username']");
-    const email = fixture.nativeElement.querySelector("input[name='email']");
-    const password = fixture.nativeElement.querySelector("input[name='password']");
+    const username = getUsernameInput(fixture);
+    const email = getEmailInput(fixture);
+    const password = getPassworkInput(fixture);
 
     username.value = 'John Doe';
     username.dispatchEvent(new Event('input'));
@@ -110,18 +103,27 @@ describe('Signup', () => {
     password.value = '123456';
     password.dispatchEvent(new Event('input'));
 
-    const submitBtn = fixture.nativeElement.querySelector('button[type="submit"]');
+    const submitBtn = getSubmitBtn(fixture);
     submitBtn.click();
     fixture.detectChanges();
 
-    const usernameError = fixture.nativeElement.querySelector('span[id="username-error"]');
-    const emailError = fixture.nativeElement.querySelector('span[id="email-error"]');
-    const passwordError = fixture.nativeElement.querySelector('span[id="password-error"]');
-    expect(usernameError).toBeNull();
-    expect(emailError).toBeNull();
-    expect(passwordError).toBeNull();
+    expect(getUsernameError(fixture)).toBeNull();
+    expect(getEmailError(fixture)).toBeNull();
+    expect(getPasswordError(fixture)).toBeNull();
   });
 });
+
+function getPasswordError(fixture: ComponentFixture<Signup>) {
+  return fixture.nativeElement.querySelector('span[id="password-error"]');
+}
+
+function getEmailError(fixture: ComponentFixture<Signup>) {
+  return fixture.nativeElement.querySelector('span[id="email-error"]');
+}
+
+function getUsernameError(fixture: ComponentFixture<Signup>) {
+  return fixture.nativeElement.querySelector('span[id="username-error"]');
+}
 
 function getSubmitBtn(fixture: ComponentFixture<Signup>) {
   return fixture.nativeElement.querySelector('button[type="submit"]');
