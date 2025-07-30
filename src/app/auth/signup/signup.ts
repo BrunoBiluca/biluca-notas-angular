@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import emailValidator from 'common/emailValidator';
+import { UserService } from '../user-service';
 
 @Component({
   selector: 'app-signup',
@@ -54,6 +55,7 @@ export class Signup {
   emailError = signal('');
   password = new FormControl('');
   passwordError = signal('');
+  userService = inject(UserService);
 
   submitSignup() {
     this.usernameError.set('');
@@ -62,6 +64,10 @@ export class Signup {
 
     if (this.username.value === '') {
       this.usernameError.set('Nome do usuário não deve ser vazio');
+    }
+
+    if (this.userService.exists(this.username.value!)) {
+      this.usernameError.set('Nome de usuário indisponível');
     }
 
     if (this.email.value === '') {
@@ -75,5 +81,15 @@ export class Signup {
     if (this.password.value === '') {
       this.passwordError.set('Password não deve ser vazio');
     }
+
+    if (this.password.value!.length < 6) {
+      this.passwordError.set('Password deve ter pelo menos 6 caracteres');
+    }
+
+    this.userService.create({
+      username: this.username.value!,
+      email: this.email.value!,
+      password: this.password.value!,
+    });
   }
 }
