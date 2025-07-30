@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  private userKey = (username: string) => "user_" + username;
+  private userKey = (username: string) => 'user_' + username;
 
   exists(username: string) {
     return !!localStorage.getItem(this.userKey(username));
@@ -16,11 +15,24 @@ export class UserService {
   }
 
   create(user: any) {
-    localStorage.setItem(this.userKey(user.username), JSON.stringify({created_at: new Date(), ...user}));
+    localStorage.setItem(
+      this.userKey(user.username),
+      JSON.stringify({ created_at: new Date(), ...user })
+    );
   }
 
   login(username: string, password: string): boolean {
-    const user = this.get(username);   
-    return user.password === password;
+    const user = this.get(username);
+    const isLogged = user.username === username && user.password === password;
+
+    if (isLogged) {
+      localStorage.setItem('token', JSON.stringify({ username: username }));
+    }
+
+    return isLogged;
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }
