@@ -41,4 +41,8 @@ export class UserService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
 }
