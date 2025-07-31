@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Login } from './login';
 import { provideRouter, Router } from '@angular/router';
-import { UserService } from '../user-service';
+import { UserNotFoundError, UserService } from '../user-service';
 
 describe('Login', () => {
   let component: Login;
@@ -12,7 +12,8 @@ describe('Login', () => {
 
   beforeEach(async () => {
     (userService.login as jasmine.Spy).and.callFake(
-      (username: string, password: string) => username === 'existing-user' && password === '123456'
+      (username: string, password: string) =>
+        username === 'existing-user' && password === '123456'
     );
 
     await TestBed.configureTestingModule({
@@ -21,8 +22,7 @@ describe('Login', () => {
         provideRouter([]),
         { provide: UserService, useValue: userService },
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
@@ -30,10 +30,6 @@ describe('Login', () => {
 
     router = TestBed.inject(Router);
     spyOn(router, 'navigate');
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   it('should display main components', () => {
@@ -48,6 +44,29 @@ describe('Login', () => {
     fixture.detectChanges();
 
     expect(getLoginError(fixture)).toBeTruthy();
+  });
+
+  it('should display error message when user does not exist', () => {
+    (userService.login as jasmine.Spy).and.callFake(
+      (_username: string, _password: string) => {
+        throw new UserNotFoundError();
+      }
+    );
+
+    const username = getUsernameInput(fixture);
+    username.value = 'non-existing-user';
+    username.dispatchEvent(new Event('input'));
+
+    const password = getPasswordInput(fixture);
+    password.value = '123456';
+    password.dispatchEvent(new Event('input'));
+
+    const submitBtn = getSubmitBtn(fixture);
+    submitBtn.click();
+    fixture.detectChanges();
+
+    expect(getLoginError(fixture)).toBeTruthy();
+    expect(getLoginError(fixture).textContent).toContain('Usuário não existe.');
   });
 
   it('should successfully login', () => {

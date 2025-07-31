@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+export class UserNotFoundError extends Error {}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +25,10 @@ export class UserService {
 
   login(username: string, password: string): boolean {
     const user = this.get(username);
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
     const isLogged = user.username === username && user.password === password;
 
     if (isLogged) {

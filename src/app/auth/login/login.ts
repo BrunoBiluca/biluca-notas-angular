@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../user-service';
+import { UserService, UserNotFoundError } from '../user-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -51,15 +51,20 @@ export class Login {
       return;
     }
 
-    const isLogged = this.userService.login(
-      this.username.value!,
-      this.password.value!
-    );
-    if (!isLogged) {
-      this.loginError.set('Username ou password incorretos');
+    try {
+      const isLogged = this.userService.login(
+        this.username.value!,
+        this.password.value!
+      );
+      if (!isLogged) {
+        this.loginError.set('Username ou password incorretos');
+        return;
+      }
+    }
+    catch(UserNotFoundError) {
+      this.loginError.set('Usuário não existe.');
       return;
     }
-
     this.router.navigate(['/notes']);
   }
 }
