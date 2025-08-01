@@ -29,7 +29,7 @@ import { FormLayout } from "../components/form-layout/form-layout";
         loginError()
       }}</mat-error>
       }
-      <auth-submit-btn (onSubmit)="submitLogin()" />
+      <auth-submit-btn (onSubmit)="submitLogin()" text="Entrar" />
     </auth-form-layout>
   `,
   styles: `

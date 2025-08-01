@@ -1,94 +1,121 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import emailValidator from 'common/emailValidator';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user-service';
 import { Router } from '@angular/router';
+import { FormLayout } from '../components/form-layout/form-layout';
+import { TextInput } from '../components/text-input/text-input';
+import { SubmitBtn } from '../components/submit-btn/submit-btn';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { merge } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NonExistingUserValidator } from './username.validator';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    FormLayout,
+    TextInput,
+    SubmitBtn,
+  ],
   template: `
-    <h1>Sign Up!</h1>
-    <fieldset>
-      <input
-        type="text"
+    <auth-form-layout title="Sign Up!">
+      <auth-text-input
         name="username"
-        placeholder="Username"
-        [formControl]="username"
-      />
-      @if(usernameError()) {
-      <span id="username-error" class="error-message">{{
-        usernameError()
-      }}</span>
-      }
-    </fieldset>
-    <fieldset>
-      <input
         type="text"
+        [ctrl]="username"
+        [error]="usernameError()"
+        (onBlur)="updateUsernameError()"
+      />
+      <auth-text-input
         name="email"
-        placeholder="Email"
-        [formControl]="email"
+        type="email"
+        [ctrl]="email"
+        [error]="emailError()"
+        (onBlur)="updateEmailError()"
       />
-      @if(emailError()) {
-      <span id="email-error" class="error-message">{{ emailError() }}</span>
-      }
-    </fieldset>
-    <fieldset>
-      <input
-        type="password"
+      <auth-text-input
         name="password"
-        placeholder="Password"
-        [formControl]="password"
+        type="password"
+        [ctrl]="password"
+        [error]="passwordError()"
+        (onBlur)="updatePasswordError()"
       />
-      @if(passwordError()){
-      <span id="password-error" class="error-message">{{
-        passwordError()
-      }}</span>
-      }
-    </fieldset>
-    <button type="submit" (click)="submitSignup()">Criar</button>
+      <auth-submit-btn (onSubmit)="submitSignup()" text="Criar" />
+    </auth-form-layout>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Signup {
-  username = new FormControl('');
+  nonExistingUserValidator = inject(NonExistingUserValidator);
+  username = new FormControl('', [Validators.required, this.nonExistingUserValidator.check()]);
   usernameError = signal('');
-  email = new FormControl('');
+  email = new FormControl('', [Validators.required, Validators.email]);
   emailError = signal('');
-  password = new FormControl('');
+  password = new FormControl('', [Validators.required, Validators.minLength(6)]);
   passwordError = signal('');
   userService = inject(UserService);
   router = inject(Router);
 
-  submitSignup() {
-    this.usernameError.set('');
-    this.emailError.set('');
-    this.passwordError.set('');
+  constructor() {
+    merge(this.username.statusChanges, this.username.valueChanges)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.updateUsernameError());
 
-    if (this.username.value === '') {
+    merge(this.email.statusChanges, this.email.valueChanges)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.updateEmailError());
+
+    merge(this.password.statusChanges, this.password.valueChanges)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.updatePasswordError());
+  }
+
+  updateUsernameError() {
+    if (this.username.hasError('required')) {
       this.usernameError.set('Nome do usuário não deve ser vazio');
+    } else if (this.username.hasError('userExists')) {
+      this.username.markAsTouched();
+      this.usernameError.set('Nome de usuário já existe');
+    } else {
+      this.usernameError.set('');
     }
+  }
 
-    if (this.userService.exists(this.username.value!)) {
-      this.usernameError.set('Nome de usuário indisponível');
-    }
-
-    if (this.email.value === '') {
+  updateEmailError() {
+    if (this.email.hasError('required')) {
       this.emailError.set('Email não deve ser vazio');
-    }
-
-    if (!emailValidator(this.email.value!)) {
+    } else if (this.email.hasError('email')) {
       this.emailError.set('Email inválido');
+    } else {
+      this.emailError.set('');
     }
+  }
 
-    if (this.password.value === '') {
-      this.passwordError.set('Password não deve ser vazio');
-    }
-
-    if (this.password.value!.length < 6) {
+  updatePasswordError() {
+    if (this.password.hasError('required')) {
       this.passwordError.set('Password deve ter pelo menos 6 caracteres');
+    } else {
+      this.passwordError.set('');
     }
+  }
 
-    if (this.usernameError() || this.emailError() || this.passwordError()) {
+  submitSignup() {
+    this.username.markAsTouched();
+    this.email.markAsTouched();
+    this.password.markAsTouched();
+
+    this.updateUsernameError();
+    this.updateEmailError();
+    this.updatePasswordError();
+
+    if (this.username.invalid || this.email.invalid || this.password.invalid) {
       return;
     }
 

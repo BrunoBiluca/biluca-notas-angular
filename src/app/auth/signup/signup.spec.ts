@@ -52,7 +52,6 @@ describe('Signup', () => {
 
   it('should display error message when any field is empty', () => {
     const submitBtn = getSubmitBtn(fixture);
-
     submitBtn.click();
     fixture.detectChanges();
 
@@ -124,15 +123,15 @@ describe('Signup', () => {
 });
 
 function getPasswordError(fixture: ComponentFixture<Signup>) {
-  return fixture.nativeElement.querySelector('span[id="password-error"]');
+  return fixture.nativeElement.querySelector('[id="password-error"]');
 }
 
 function getEmailError(fixture: ComponentFixture<Signup>) {
-  return fixture.nativeElement.querySelector('span[id="email-error"]');
+  return fixture.nativeElement.querySelector('[id="email-error"]');
 }
 
 function getUsernameError(fixture: ComponentFixture<Signup>) {
-  return fixture.nativeElement.querySelector('span[id="username-error"]');
+  return fixture.nativeElement.querySelector('[id="username-error"]');
 }
 
 function getSubmitBtn(fixture: ComponentFixture<Signup>) {

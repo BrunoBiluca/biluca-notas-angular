@@ -11,7 +11,7 @@ import { MatButton } from '@angular/material/button';
       matButton="filled"
       class="auth-submit"
     >
-      Continuar
+      {{ text() }}
     </button>
   `,
   styles: `
@@ -23,6 +23,7 @@ import { MatButton } from '@angular/material/button';
 })
 export class SubmitBtn {
   onSubmit = output<void>();
+  text = input<string>();
 
   handleClick() {
     this.onSubmit.emit();
