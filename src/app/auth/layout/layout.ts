@@ -22,7 +22,6 @@ import { RouterOutlet } from '@angular/router';
 
     .content {
       width: 400px;
-      background-color: lightblue;
     }
   `,
 })

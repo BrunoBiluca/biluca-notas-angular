@@ -102,5 +102,5 @@ function getUsernameInput(fixture: ComponentFixture<Login>): any {
 }
 
 function getLoginError(fixture: ComponentFixture<Login>): any {
-  return fixture.nativeElement.querySelector('span[id="login-error"]');
+  return fixture.nativeElement.querySelector('*[id="login-error"]');
 }
