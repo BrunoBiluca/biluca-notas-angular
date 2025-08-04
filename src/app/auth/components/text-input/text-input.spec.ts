@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextInput } from './text-input';
+import { FormControl } from '@angular/forms';
 
 describe('TextInput', () => {
   let component: TextInput;
@@ -14,6 +15,11 @@ describe('TextInput', () => {
 
     fixture = TestBed.createComponent(TextInput);
     component = fixture.componentInstance;
+
+    fixture.componentInstance.name = "username";
+    fixture.componentInstance.type = "text";
+    fixture.componentInstance.ctrl = new FormControl('');
+
     fixture.detectChanges();
   });
 
