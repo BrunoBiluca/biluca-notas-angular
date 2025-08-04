@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
+  FormGroupDirective,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -11,15 +12,33 @@ import {
   MatLabel,
 } from '@angular/material/input';
 import { NotesService } from '../notes-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'note-form',
-  imports: [ReactiveFormsModule, MatFormField, MatLabel, MatInputModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInputModule,
+    CommonModule,
+  ],
   template: `
-    <form [formGroup]="createNoteForm" (ngSubmit)="onSubmit()">
+    <form
+      class="note-form"
+      [formGroup]="createNoteForm"
+      #formDirective="ngForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <h1>Nova nota</h1>
       <mat-form-field>
         <mat-label for="title">Title</mat-label>
         <input matInput type="text" formControlName="title" id="title" />
+        @if(createNoteForm.get('title')!.invalid) {
+        <mat-error *ngIf="createNoteForm.get('title')!.errors?.['required']">
+          Título é obrigatorio
+        </mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <mat-label for="content">Content</mat-label>
@@ -32,8 +51,17 @@ import { NotesService } from '../notes-service';
       <button type="submit" [disabled]="createNoteForm.invalid">Criar</button>
     </form>
   `,
+  styles: `
+    .note-form {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin: 0 auto;
+    }
+  `,
 })
 export class NoteForm {
+  @ViewChild('formDirective') private formDirective!: FormGroupDirective;
   createNoteForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     content: new FormControl(''),
@@ -42,6 +70,8 @@ export class NoteForm {
   notesService = inject(NotesService);
 
   onSubmit() {
+    this.markFormGroupTouched(this.createNoteForm);
+
     if (this.createNoteForm.invalid) {
       return;
     }
@@ -51,6 +81,17 @@ export class NoteForm {
       content: this.createNoteForm.get('content')!.value,
       color: this.createNoteForm.get('color')!.value,
     });
+
+    this.formDirective.resetForm();
     this.createNoteForm.reset();
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }
