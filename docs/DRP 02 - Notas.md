@@ -25,7 +25,8 @@ Gerenciamento de notas.
 
 ### Dependências
 
-- Nenhuma
+- [[DRP 01 - Controle de acesso (mock)]]
+	- As notas são associadas ao usuário autenticado
 
 ### Dúvidas
 
@@ -64,6 +65,21 @@ Gerenciamento de notas.
 __Descrição__
 Como usuário quero criar uma nova nota.
 
+A criação da nota é feita de acordo com [[#Modelagem]] descrita.
+
+**Campos obrigatórios:**
+- título
+
+**Campos opcionais:**
+- conteúdo
+- cor de fundo
+
+**Campos preenchidos automaticamente:**
+- id: cria quando a nota é criada
+- criado em: quando a nota foi criada
+- atualizado em: mesmo valor do criado em
+- user_id: id do usuário autenticado
+
 #### Critérios de aceite
 
 **Cenário:** 
@@ -74,7 +90,7 @@ Como usuário quero criar uma nova nota.
 **Cenários alternativos:**
 
 - **Campo vazio**: Se o título estiver vazio, exibir erro ("Título obrigatório").
-- **Limite de caracteres**: Se exceder (ex: 500 caracteres), truncar ou avisar.
+- **Limite de caracteres**: Se exceder 200 caracteres avisar o limite máximo.
 
 ### RF 02 - Exibição de todas as notas em Lista
 
@@ -257,6 +273,7 @@ nota = {
 	isPinned: true,
 	createdAt: "2024-01-20T10:00:00Z",
 	updatedAt: "2024-01-20T10:30:00Z",
+	user_id: <id_usuário>
 };
 ```
 

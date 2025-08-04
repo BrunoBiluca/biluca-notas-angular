@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { NoteForm } from "app/notes/note-form/note-form";
 
 @Component({
   selector: 'app-home',
-  imports: [],
-  template: `<h1>home works!</h1>`,
+  imports: [NoteForm],
+  template: `
+    <h1>Notas</h1>
+    <note-form></note-form>
+  `,
   styles: ``
 })
 export class Home {
