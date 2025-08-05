@@ -13,6 +13,7 @@ import {
 } from '@angular/material/input';
 import { NotesService } from '../notes-service';
 import { CommonModule } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'note-form',
@@ -21,6 +22,7 @@ import { CommonModule } from '@angular/common';
     MatFormField,
     MatLabel,
     MatInputModule,
+    MatButton,
     CommonModule,
   ],
   template: `
@@ -56,7 +58,13 @@ import { CommonModule } from '@angular/common';
         <mat-label for="color">Color</mat-label>
         <input matInput type="color" formControlName="color" id="color" />
       </mat-form-field>
-      <button type="submit" [disabled]="createNoteForm.invalid">Criar</button>
+      <button
+        matButton="filled"
+        type="submit"
+        [disabled]="createNoteForm.invalid"
+      >
+        Criar
+      </button>
     </form>
   `,
   styles: `
