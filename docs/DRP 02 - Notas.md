@@ -97,6 +97,8 @@ A criação da nota é feita de acordo com [[#Modelagem]] descrita.
 __Descrição__
 Como usuário quero ter a opção de ver todas as minhas notas exibidas em lista.
 
+Ordenação padrão é pela data de atualização, quanto mais recentemente editada uma nota foi mais no topo ela aparece.
+
 #### Critérios de aceite
 
 **Cenário:** Exibição em lista

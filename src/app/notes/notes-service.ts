@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { NoteCreateParams } from './note-create-params.model';
 import { Note } from './note.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotesService {
+  private notesSubject = new BehaviorSubject<Note[]>([]);
+  private notes: Note[] = [];
+
+  notes$ = this.notesSubject.asObservable();
+
   getAll(): Note[] {
     const notes: Note[] = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -15,11 +21,13 @@ export class NotesService {
         notes.push(note);
       }
     }
+    this.notes.push(...notes);
+    this.notesSubject.next(this.notes);
     return notes;
   }
 
   create(note: NoteCreateParams) {
-    const newNote = {
+    const newNote: Note = {
       id: Math.random().toString(36).substring(2, 9),
       created_at: new Date(),
       updated_at: new Date(),
@@ -28,6 +36,8 @@ export class NotesService {
     };
     localStorage.setItem('note_' + newNote.id, JSON.stringify(newNote));
 
+    this.notes.push(newNote);
+    this.notesSubject.next(this.notes);
     return newNote;
   }
 }

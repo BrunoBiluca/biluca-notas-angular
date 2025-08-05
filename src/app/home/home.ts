@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { NoteForm } from "app/notes/note-form/note-form";
+import { NoteForm } from 'app/notes/note-form/note-form';
 import { Note } from 'app/notes/note.model';
-import { NotesList } from "app/notes/notes-list/notes-list";
+import { NotesList } from 'app/notes/notes-list/notes-list';
 import { NotesService } from 'app/notes/notes-service';
 
 @Component({
@@ -12,14 +12,14 @@ import { NotesService } from 'app/notes/notes-service';
     <note-form></note-form>
     <notes-list [notes]="notes()" />
   `,
-  styles: ``
+  styles: ``,
 })
-export class Home implements OnInit{
-  notes = signal<Note[]>([])
-  notesService = inject(NotesService)
+export class Home implements OnInit {
+  notes = signal<Note[]>([]);
+  notesService = inject(NotesService);
 
   ngOnInit(): void {
-    this.notes.set(this.notesService.getAll())
+    this.notesService.getAll();
+    this.notesService.notes$.subscribe((notes) => this.notes.set(notes));
   }
-
 }
