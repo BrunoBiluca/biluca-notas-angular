@@ -3,13 +3,15 @@ import { NoteForm } from 'app/notes/note-form/note-form';
 import { Note } from 'app/notes/note.model';
 import { NotesList } from 'app/notes/notes-list/notes-list';
 import { NotesService } from 'app/notes/notes-service';
+import { ViewModeSelector } from "app/notes/view-mode-selector/view-mode-selector";
 
 @Component({
   selector: 'app-home',
-  imports: [NoteForm, NotesList],
+  imports: [NoteForm, NotesList, ViewModeSelector],
   template: `
     <h1>Notas</h1>
     <note-form></note-form>
+    <notes-view-mode-selector />
     <notes-list [notes]="notes()" />
   `,
   styles: ``,

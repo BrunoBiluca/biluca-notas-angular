@@ -49,16 +49,17 @@ Gerenciamento de notas.
 **Índice**
 
 - [[#RF 01 - Nova nota]]
-- [[#RF 02 - Exibição de todas as notas em Lista]]
-- [[#RF 03 - Exibição de todas as notas em Grade]]
-- [[#RF 04 - Seleção de nota]]
-- [[#RF 05 - Edição de nota]]
-- [[#RF 06 - Remoção de nota]]
-- [[#RF 07 - Pesquisa por nota]]
-- [[#RF 08 - Fixar nota]]
-- [[#RF 08.01 - Desafixar nota]]
-- [[#RF 09 - Ordenação de notas]]
-- [[#RF 10 - Ordenação manual de Notas]]
+- [[#RF 02 - Exibição de notas]]
+- [[#RF 02.01 - Exibição de todas as notas em Lista]]
+- [[#RF 02.02 - Exibição de todas as notas em Grade]]
+- [[#RF 03 - Seleção de nota]]
+- [[#RF 04 - Edição de nota]]
+- [[#RF 05 - Remoção de nota]]
+- [[#RF 06 - Pesquisa por nota]]
+- [[#RF 07 - Fixar nota]]
+- [[#RF 07.01 - Desafixar nota]]
+- [[#RF 08 - Ordenação de notas]]
+- [[#RF 09 - Ordenação manual de Notas]]
 
 ### RF 01 - Nova nota
 
@@ -92,7 +93,23 @@ A criação da nota é feita de acordo com [[#Modelagem]] descrita.
 - **Campo vazio**: Se o título estiver vazio, exibir erro ("Título obrigatório").
 - **Limite de caracteres**: Se exceder 200 caracteres avisar o limite máximo.
 
-### RF 02 - Exibição de todas as notas em Lista
+### RF 02 - Exibição de notas
+
+__Descrição__
+Como usuário quero verificar as notas criadas em no tipo de exibição escolhido
+
+#### Critérios de aceite
+
+**Cenário:** Escolha do modo de exibição
+- Dado que o usuário está na página de notas
+- Quando seleciona uma opção de exibição
+- Então a tela deve se adaptar a esse modo de exibição
+
+**Cenário:** Persistência do modo de exibição
+- Dado que o usuário está na página de notas
+- Então a tela deve carregar o último modo de exibição carregado
+
+### RF 02.01 - Exibição de todas as notas em Lista
 
 __Descrição__
 Como usuário quero ter a opção de ver todas as minhas notas exibidas em lista.
@@ -106,7 +123,7 @@ Ordenação padrão é pela data de atualização, quanto mais recentemente edit
 - **Quando** está selecionada a opção de exibição por lista
 - **Então** todas as notas devem ser exibidas em lista, uma seguida da outra
 
-### RF 03 - Exibição de todas as notas em Grade
+### RF 02.02 - Exibição de todas as notas em Grade
 
 __Descrição__
 Como usuário quero ter a opção de ver todas as minhas notas exibidas em grade
@@ -118,7 +135,7 @@ Como usuário quero ter a opção de ver todas as minhas notas exibidas em grade
 - **Quando** está selecionada a opção de exibição por grade
 - **Então** todas as notas devem ser exibidas em grade, com no máximo 3 colunas
 
-### RF 04 - Seleção de nota
+### RF 03 - Seleção de nota
 
 __Descrição__
 Como usuário quero selecionar uma nota a fim de destacar a nota e conseguir visualizar todas as suas informações.
@@ -135,7 +152,7 @@ Como usuário quero selecionar uma nota a fim de destacar a nota e conseguir vis
 - **Quando** coloco o endereço url de uma nota que foi removida
 - **Então** deve ser exibida uma mensagem de que a nota foi removida e não existe mais
 
-### RF 05 - Edição de nota
+### RF 04 - Edição de nota
 
 __Descrição__
 Como usuário quero poder atualizar o título e conteúdo de uma nota já cadastrada
@@ -150,7 +167,7 @@ Como usuário quero poder atualizar o título e conteúdo de uma nota já cadast
 **Cenários alternativos:**
 - **Cancelar edição**: Se clicar em "Cancelar", descartar alterações.
 
-### RF 06 - Remoção de nota
+### RF 05 - Remoção de nota
 
 __Descrição__
 Como usuário quero poder remover notas para que elas não sejam mais exibidas
@@ -164,7 +181,7 @@ Como usuário quero poder remover notas para que elas não sejam mais exibidas
 - **Quando** eu seleciono a opção remover
 - **Então** a nota é removida da exibição
 
-### RF 07 - Pesquisa por nota
+### RF 06 - Pesquisa por nota
 
 __Descrição__
 Como usuário quero poder buscar por notas a partir de palavras contidas no título ou no conteúdo.
@@ -182,7 +199,7 @@ Como usuário quero poder buscar por notas a partir de palavras contidas no tít
 - **Quando** escrevo uma palavra que não existe em nenhuma nota (nem título, nem conteúdo)
 - **Então** é exibida uma mensagem de que não foi encontrada nenhuma nota
 
-### RF 08 - Fixar nota
+### RF 07 - Fixar nota
 
 __Descrição__
 Como usuário quero ter a opção de fixar uma nota no topo da página de exibição.
@@ -194,7 +211,7 @@ Como usuário quero ter a opção de fixar uma nota no topo da página de exibi�
 - **Quando** seleciono a opção de fixar uma nota
 - **Então** ele é movida para o topo da exibição
 
-### RF 08.01 - Desafixar nota
+### RF 07.01 - Desafixar nota
 
 __Descrição__
 Como usuário quero ter a opção de desafixar uma nota fixada no topo da página de exibição.
@@ -206,7 +223,7 @@ Como usuário quero ter a opção de desafixar uma nota fixada no topo da págin
 - **Quando** seleciona uma opção de desafixar a nota
 - **Então** ele é movida para a primeira posição (após as notas fixadas) na exibição de notas
 
-### RF 09 - Ordenação de notas
+### RF 08 - Ordenação de notas
 
 __Descrição__
 Como usuário quero ordenar automaticamente as notas pelos seus atributos ordenáveis.
@@ -235,7 +252,7 @@ Como usuário quero ordenar automaticamente as notas pelos seus atributos orden�
 - **Quando** ele seleciona a opção de ordenação por data de criação (novamente)
 - **Então** as notas são ordenadas da mais antiga para a mais recente
 
-### RF 10 - Ordenação manual de Notas
+### RF 09 - Ordenação manual de Notas
 
 __Descrição__
 Como usuário quero ordenar as notas de forma manual assim posso deixar as notas mais importantes mais destacadas.
