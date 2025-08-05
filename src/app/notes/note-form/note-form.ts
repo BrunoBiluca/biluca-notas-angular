@@ -43,6 +43,14 @@ import { CommonModule } from '@angular/common';
       <mat-form-field>
         <mat-label for="content">Content</mat-label>
         <textarea matInput formControlName="content" id="content"></textarea>
+        @if(createNoteForm.get('content')!.invalid) {
+        <mat-error
+          *ngIf="createNoteForm.get('content')!.errors?.['maxlength']"
+          id="content-error"
+        >
+          O conteúdo deve ter no máximo 200 caracteres.
+        </mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <mat-label for="color">Color</mat-label>
@@ -64,12 +72,13 @@ export class NoteForm {
   @ViewChild('formDirective') private formDirective!: FormGroupDirective;
   createNoteForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
-    content: new FormControl(''),
+    content: new FormControl('', [Validators.maxLength(200)]),
     color: new FormControl('#8FF0A4'),
   });
   notesService = inject(NotesService);
 
   onSubmit() {
+    console.log(this.createNoteForm.get('content')!.errors);
     this.markFormGroupTouched(this.createNoteForm);
 
     if (this.createNoteForm.invalid) {

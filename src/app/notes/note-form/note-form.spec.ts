@@ -31,12 +31,28 @@ describe('NoteForm', () => {
   });
 
   it("should invalidate form when title is empty", () => {
+    component.createNoteForm.get('title')!.markAsTouched();
     const submitBtn = getSubmitBtn(fixture);
-    submitBtn.click();
     fixture.detectChanges();
 
     expect(component.createNoteForm.invalid).toBeTrue();
     expect(submitBtn.disabled).toBeTrue();
+  });
+
+  it("should invalidate form when content is more than X characters", () => {
+    const title = getTitleField(fixture);
+    component.createNoteForm.get('title')!.markAsTouched();
+    title.value = "title";
+    title.dispatchEvent(new Event('input'));
+
+    const content = getContentField(fixture);
+    component.createNoteForm.get('content')!.markAsTouched();
+    content.value = "a".repeat(201);
+    content.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(component.createNoteForm.invalid).toBeTrue();
+    expect(fixture.nativeElement.querySelector("[id='content-error']")).toBeTruthy();
   });
 
   it("should submit form when all validations are passed", () => {
