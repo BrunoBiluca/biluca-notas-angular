@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotesList } from './notes-list';
+import { Grid } from './grid';
 
-describe('NotesList', () => {
-  let component: NotesList;
-  let fixture: ComponentFixture<NotesList>;
+describe('Grid', () => {
+  let component: Grid;
+  let fixture: ComponentFixture<Grid>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotesList]
+      imports: [Grid]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NotesList);
+    fixture = TestBed.createComponent(Grid);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should display notes as a list', () => {
+  it('should create', () => {
     component.notes = [
       {
         id: '1',
