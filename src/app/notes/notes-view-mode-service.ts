@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotesViewModeService {
   private viewModeSubject = new BehaviorSubject<'list' | 'grid'>('list');
-  viewMode$ = this.viewModeSubject.asObservable();
+  viewMode$ = (): Observable<'list' | 'grid'> =>
+    this.viewModeSubject.asObservable();
 
   getCurrent(): string {
     return localStorage.getItem('viewMode')!;

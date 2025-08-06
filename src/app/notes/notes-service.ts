@@ -10,7 +10,7 @@ export class NotesService {
   private notesSubject = new BehaviorSubject<Note[]>([]);
   private notes: Note[] = [];
 
-  notes$ = this.notesSubject.asObservable();
+  notes$ = (): Observable<Note[]> => this.notesSubject.asObservable();
 
   getAll(): Note[] {
     const notes: Note[] = [];
@@ -39,5 +39,12 @@ export class NotesService {
     this.notes.push(newNote);
     this.notesSubject.next(this.notes);
     return newNote;
+  }
+
+  delete(note: Note): Note {
+    localStorage.removeItem('note_' + note.id);
+    this.notes = this.notes.filter((n) => n.id !== note.id);
+    this.notesSubject.next(this.notes);
+    return note;
   }
 }

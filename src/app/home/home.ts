@@ -15,8 +15,7 @@ import { ViewModeSelector } from 'app/notes/view-mode-selector/view-mode-selecto
     <note-form></note-form>
     <notes-view-mode-selector />
     @if (viewMode() === 'list') {
-    <notes-list [notes]="notes()" />
-
+    <notes-list [notes]="notes()" (onDelete)="deleteNote($event)" />
     } @else if (viewMode() === 'grid') {
     <notes-grid [notes]="notes()" />
     }
@@ -31,11 +30,22 @@ export class Home implements OnInit {
   notesViewModeService = inject(NotesViewModeService);
 
   ngOnInit(): void {
-    this.notesService.getAll();
-    this.notesService.notes$.subscribe((notes) => this.notes.set(notes));
+    this.initViewMode();
+    this.initNotes();
+  }
 
-    this.notesViewModeService.viewMode$.subscribe((mode) => {
+  initViewMode() {
+    this.notesViewModeService.viewMode$().subscribe((mode) => {
       this.viewMode.set(mode);
     });
+  }
+
+  initNotes() {
+    this.notesService.getAll();
+    this.notesService.notes$().subscribe((notes) => this.notes.set(notes));
+  }
+
+  deleteNote(note: Note) {
+    this.notesService.delete(note);
   }
 }
