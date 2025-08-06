@@ -143,6 +143,15 @@ describe('Home', () => {
 
     expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
   });
+
+  it('should display message when there are no notes', () => {
+    const searchInput = fixture.nativeElement.querySelector('#search');
+    searchInput.value = 'non-existing-note';
+    searchInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.no-notes')).toBeTruthy();
+  });
 });
 
 function getNotesView(mode: 'grid' | 'list', fixture: ComponentFixture<Home>) {

@@ -29,6 +29,9 @@ import { ViewModeSelector } from 'app/notes/view-mode-selector/view-mode-selecto
       [(ngModel)]="searchTerm"
     />
     <notes-view-mode-selector />
+    @if (searchTerm().length >= 3 && filteredNotes().length === 0) {
+    <p class="no-notes">Nenhuma nota encontrada</p>
+    }
     @if (viewMode() === 'list') {
     <notes-list [notes]="filteredNotes()" (onDelete)="deleteNote($event)" />
     } @else if (viewMode() === 'grid') {
@@ -44,7 +47,7 @@ export class Home implements OnInit {
     if (this.searchTerm().length < 3) {
       return this.notes();
     }
-    
+
     return this.notes().filter(
       (note) =>
         note.title.toLowerCase().includes(this.searchTerm().toLowerCase()) ||
