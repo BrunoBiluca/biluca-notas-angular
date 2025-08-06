@@ -8,9 +8,8 @@ describe('NotesList', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotesList]
-    })
-    .compileComponents();
+      imports: [NotesList],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NotesList);
     component = fixture.componentInstance;
@@ -40,9 +39,35 @@ describe('NotesList', () => {
     ];
     fixture.detectChanges();
 
-    expect(component).toBeTruthy();
-    expect(
-      fixture.nativeElement.querySelectorAll('.note-item').length
-    ).toBe(2);
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
+  });
+
+  it('should pin note on the beginning of the list', () => {
+    component.notes = [
+      {
+        id: '1',
+        title: 'title',
+        content: 'content',
+        color: '#8FF0A4',
+        isPinned: true,
+        created_at: new Date(),
+        updated_at: new Date(),
+        user: 'bruno',
+      },
+      {
+        id: '2',
+        title: 'title',
+        content: 'content',
+        color: '#8FF0A4',
+        created_at: new Date(),
+        updated_at: new Date(),
+        user: 'bruno',
+      },
+    ];
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
+    expect(fixture.nativeElement.querySelector('.note-item').classList.contains('pinned')).toBeTrue();
   });
 });

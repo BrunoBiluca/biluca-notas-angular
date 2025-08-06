@@ -41,6 +41,17 @@ export class NotesService {
     return newNote;
   }
 
+  update(id: string, updatedValues: Partial<Note>): Note {
+    const note = this.notes.find((n) => n.id === id);
+    if (!note) {
+      throw new Error('Note not found');
+    }
+
+    const updatedNote = { ...note, ...updatedValues, updated_at: new Date() };
+    localStorage.setItem('note_' + id, JSON.stringify(updatedNote));
+    return updatedNote;
+  }
+
   delete(note: Note): Note {
     localStorage.removeItem('note_' + note.id);
     this.notes = this.notes.filter((n) => n.id !== note.id);

@@ -55,8 +55,9 @@ describe('Home', () => {
     });
     notesService.notes$.and.callFake(() => notesSubject.asObservable());
     notesService.delete.and.callFake((note: Note) => {
-      const newLocal = notesSubject.getValue();
-      notesSubject.next(newLocal.filter((n) => n.id !== note.id));
+      notesSubject.next(
+        notesSubject.getValue().filter((n) => n.id !== note.id)
+      );
       return note;
     });
 
