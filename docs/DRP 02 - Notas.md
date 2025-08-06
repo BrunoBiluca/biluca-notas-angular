@@ -52,7 +52,7 @@ Gerenciamento de notas.
 - [[#RF 02 - Exibição de notas]]
 - [[#RF 02.01 - Exibição de todas as notas em Lista]]
 - [[#RF 02.02 - Exibição de todas as notas em Grade]]
-- [[#RF 03 - Seleção de nota]]
+- [[#RF 03 - Detalhes de nota]]
 - [[#RF 04 - Edição de nota]]
 - [[#RF 05 - Remoção de nota]]
 - [[#RF 06 - Pesquisa por nota]]
@@ -135,7 +135,7 @@ Como usuário quero ter a opção de ver todas as minhas notas exibidas em grade
 - **Quando** está selecionada a opção de exibição por grade
 - **Então** todas as notas devem ser exibidas em grade, com no máximo 3 colunas
 
-### RF 03 - Seleção de nota
+### RF 03 - Detalhes da nota
 
 __Descrição__
 Como usuário quero selecionar uma nota a fim de destacar a nota e conseguir visualizar todas as suas informações.

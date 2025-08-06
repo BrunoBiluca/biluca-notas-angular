@@ -1,23 +1,17 @@
-import {
-  Component,
-  computed,
-  EventEmitter,
-  inject,
-  Input,
-  Output,
-  Signal,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Note } from '../note.model';
 import { CommonModule } from '@angular/common';
 import { NotesService } from '../notes-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'notes-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <ul>
       <li
+        [routerLink]="['/notes', note.id]"
         *ngFor="let note of getPinnedNotes()"
         class="note-item pinned"
         style="background-color: {{ note.color }}"
@@ -30,6 +24,7 @@ import { NotesService } from '../notes-service';
         <button (click)="onDelete.emit(note)">delete</button>
       </li>
       <li
+        [routerLink]="['/notes', note.id]"
         *ngFor="let note of getGeneralNotes()"
         class="note-item"
         style="background-color: {{ note.color }}"

@@ -5,8 +5,14 @@ import { Home } from './home/home';
 import { authGuard } from './auth/auth-guard';
 import { Layout } from './shared/layout/layout';
 import { Layout as AuthLayout} from './auth/layout/layout';
+import { NoteDetail } from './notes/note-detail/note-detail';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
   {
     path: '',
     component: AuthLayout,
@@ -26,13 +32,16 @@ export const routes: Routes = [
   },
   {
     path: 'notes',
-    pathMatch: 'full',
     component: Layout,
     canActivate: [authGuard],
     children: [
       {
         path: '',
         component: Home,
+      },
+      {
+        path: ':id',
+        component: NoteDetail,
       },
     ],
   },
