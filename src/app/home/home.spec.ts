@@ -35,8 +35,17 @@ describe('Home', () => {
       notesSubject.next([
         {
           id: '1',
-          title: 'title',
-          content: 'content',
+          title: 'note 1',
+          content: 'abc',
+          color: '#8FF0A4',
+          created_at: new Date(),
+          updated_at: new Date(),
+          user: 'bruno',
+        },
+        {
+          id: '2',
+          title: 'note 2',
+          content: 'def',
           color: '#8FF0A4',
           created_at: new Date(),
           updated_at: new Date(),
@@ -66,6 +75,7 @@ describe('Home', () => {
   });
 
   it('should display main components', () => {
+    expect(getSearchInput(fixture)).toBeTruthy();
     expect(getNotesViewModeSelector(fixture)).toBeTruthy();
     expect(getNotesView('list', fixture)).toBeTruthy();
   });
@@ -80,11 +90,11 @@ describe('Home', () => {
     expect(getNotesView('list', fixture)).toBeTruthy();
   });
 
-  it('should display saved notes', () => {
+  it('should display all saved notes', () => {
     fixture.detectChanges();
 
     expect(getNotesView('list', fixture)).toBeTruthy();
-    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
   });
 
   it('should update notes view when note is deleted', () => {
@@ -99,7 +109,39 @@ describe('Home', () => {
     });
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(0);
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
+  });
+
+  it('should display notes that match search term by title', () => {
+    const searchInput = fixture.nativeElement.querySelector('#search');
+    searchInput.value = 'note 1';
+    searchInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
+
+    // reset search
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
+  });
+
+  it('should display notes that match search term by content', () => {
+    const searchInput = fixture.nativeElement.querySelector('#search');
+    searchInput.value = 'def';
+    searchInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
+
+    // reset search
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
   });
 });
 
@@ -109,4 +151,8 @@ function getNotesView(mode: 'grid' | 'list', fixture: ComponentFixture<Home>) {
 
 function getNotesViewModeSelector(fixture: ComponentFixture<Home>) {
   return fixture.nativeElement.querySelector('notes-view-mode-selector');
+}
+
+function getSearchInput(fixture: ComponentFixture<Home>) {
+  return fixture.nativeElement.querySelector('#search');
 }

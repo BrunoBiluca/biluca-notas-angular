@@ -190,9 +190,16 @@ Como usuário quero poder buscar por notas a partir de palavras contidas no tít
 
 **Cenário:** Busca por palavras
 - **Dado** que estou na página de Notas
-- **Quando** escrevo uma palavra
+- **Quando** escrevo uma palavra (mínimo 3 caracteres)
 - **Então** então apenas notas que tem essa palavra no seu título ou conteúdo são exibidas
 - **E** essa palavra é destacada na exibição
+
+**Cenário:** Adição de notas com busca ativa
+- Dado que estou na página de Notas 
+- E já tem um termo de busca
+- Quando adiciono uma nota
+- Se ela tem o termo da busca deve aparecer
+- Senão ela não deve aparecer
 
 **Cenário:** Palavra não existe
 - **Dado** que estou na página de Notas
