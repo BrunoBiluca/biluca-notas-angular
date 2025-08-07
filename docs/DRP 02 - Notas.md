@@ -282,6 +282,19 @@ Como usuário quero ordenar as notas de forma manual assim posso deixar as notas
 - **E** selecionada a visualização em grade
 - **Então** as notas são ordenadas de cima para baixo, da esquerda para a direita
 
+### RF 10 - Adição de imagem
+
+__Descrição__
+Como usuário quero adicionar imagens as minhas notas.
+
+#### Critérios de aceite
+
+**Cenário:** Imagem anexada
+- **Dado** que estou na criação de notas
+- **Quando** adiciono uma imagem como anexo
+- **Então** nos detalhes da nota a imagem aparece em tela cheia
+- **E** na tela de notas aparece apenas a miniatura da imagem
+
 # Especificação de arquitetura
 
 ## Modelagem

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NoteCreateParams } from './note-create-params.model';
 import { Note } from './note.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,14 @@ export class NotesService {
     this.notes.push(...notes);
     this.notesSubject.next(this.notes);
     return notes;
+  }
+
+  get(id: string): Observable<Note> {
+    const note = this.notes.find((n) => n.id === id);
+    if (!note) {
+      throw new Error('Note not found');
+    }
+    return of(note);
   }
 
   create(note: NoteCreateParams) {

@@ -2,19 +2,19 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Note } from '../note.model';
 import { CommonModule } from '@angular/common';
 import { NotesService } from '../notes-service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'notes-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   template: `
     <ul>
       <li
-        [routerLink]="['/notes', note.id]"
         *ngFor="let note of getPinnedNotes()"
         class="note-item pinned"
         style="background-color: {{ note.color }}"
+        (click)="goToNoteDetail(note)"
       >
         <span class="pin-icon">📌</span>
         <h3>{{ note.title }}</h3>
@@ -24,10 +24,10 @@ import { RouterLink } from '@angular/router';
         <button (click)="onDelete.emit(note)">delete</button>
       </li>
       <li
-        [routerLink]="['/notes', note.id]"
         *ngFor="let note of getGeneralNotes()"
         class="note-item"
         style="background-color: {{ note.color }}"
+        (click)="goToNoteDetail(note)"
       >
         <h3>{{ note.title }}</h3>
         <p>{{ note.content }}</p>
@@ -42,12 +42,17 @@ export class NotesList {
   @Input() notes: Note[] = [];
   @Output() onDelete = new EventEmitter<Note>();
   notesService = inject(NotesService);
+  router = inject(Router);
 
   togglePin(note: Note) {
     note.isPinned = !note.isPinned;
     this.notesService.update(note.id, {
       isPinned: note.isPinned,
     });
+  }
+
+  goToNoteDetail(note: Note) {
+    this.router.navigate(['/notes', note.id]);
   }
 
   getPinnedNotes(): Note[] {
