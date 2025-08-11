@@ -2,41 +2,38 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Note } from '../note.model';
 import { CommonModule } from '@angular/common';
 import { NotesService } from '../notes-service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { Item } from './item/item';
 
 @Component({
   selector: 'notes-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, Item],
   template: `
-    <ul>
-      <li
-        *ngFor="let note of getPinnedNotes()"
-        class="note-item pinned"
-        style="background-color: {{ note.color }}"
-        (click)="goToNoteDetail(note)"
-      >
-        <span class="pin-icon">📌</span>
-        <h3>{{ note.title }}</h3>
-        <p>{{ note.content }}</p>
-        <p>{{ note.created_at | date : 'dd/MM/yyyy' }}</p>
-        <button (click)="togglePin(note)">UnPin</button>
-        <button (click)="onDelete.emit(note)">delete</button>
-      </li>
-      <li
-        *ngFor="let note of getGeneralNotes()"
-        class="note-item"
-        style="background-color: {{ note.color }}"
-        (click)="goToNoteDetail(note)"
-      >
-        <h3>{{ note.title }}</h3>
-        <p>{{ note.content }}</p>
-        <p>{{ note.created_at | date : 'dd/MM/yyyy' }}</p>
-        <button (click)="togglePin(note)">Pin</button>
-        <button (click)="onDelete.emit(note)">Delete</button>
-      </li>
+    <h3>{{ 'Fixadas' | uppercase }}</h3>
+    <ul id="pinned-notes" class="notes-list">
+      @for(note of getPinnedNotes(); track note.id) {
+      <item
+        [note]="note"
+        (onDelete)="onDelete.emit($event)"
+        (onTogglePin)="togglePin($event)"
+      ></item>
+      }
+    </ul>
+    <h3>{{ 'Outras' | uppercase }}</h3>
+    <ul id="other-notes" class="notes-list">
+      @for(note of getGeneralNotes(); track note.id) {
+      <item
+        [note]="note"
+        (onDelete)="onDelete.emit($event)"
+        (onTogglePin)="togglePin($event)"
+      ></item>
+      }
     </ul>
   `,
+  styleUrl: './notes-list.scss',
 })
 export class NotesList {
   @Input() notes: Note[] = [];
@@ -49,10 +46,6 @@ export class NotesList {
     this.notesService.update(note.id, {
       isPinned: note.isPinned,
     });
-  }
-
-  goToNoteDetail(note: Note) {
-    this.router.navigate(['/notes', note.id]);
   }
 
   getPinnedNotes(): Note[] {

@@ -13,7 +13,7 @@ import { RouterOutlet } from '@angular/router';
     </main>
     <app-footer></app-footer>
   `,
-  styles: ''
+  styleUrl: 'layout.scss'
 })
 export class Layout {
 

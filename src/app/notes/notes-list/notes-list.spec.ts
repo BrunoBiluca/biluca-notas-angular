@@ -11,7 +11,7 @@ describe('NotesList', () => {
 
   let router: Router;
   let notesService = jasmine.createSpyObj('NotesService', ['update']);
-  let mockNotes = [
+  const mockNotes = () => [
     {
       id: '1',
       title: 'title',
@@ -38,7 +38,8 @@ describe('NotesList', () => {
       imports: [NotesList],
       providers: [
         provideRouter(routes),
-        { provide: NotesService, useValue: notesService }],
+        { provide: NotesService, useValue: notesService },
+      ],
     }).compileComponents();
 
     notesService.update.and.callFake(() => {});
@@ -52,51 +53,39 @@ describe('NotesList', () => {
   });
 
   it('should display notes as a list', () => {
-    component.notes = mockNotes;
+    component.notes = mockNotes();
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
   });
 
-  it('should pin note on the beginning of the list', () => {
-    component.notes = mockNotes;
+  it('should pin note in pinned list', () => {
+    component.notes = mockNotes();
 
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
-    expect(
-      fixture.nativeElement
-        .querySelector('.note-item')
-        .classList.contains('pinned')
-    ).toBeTrue();
+    const pinnedList = fixture.nativeElement.querySelector('#pinned-notes');
+    expect(pinnedList.querySelectorAll('.note-item').length).toBe(1);
   });
 
   it('should unpin note', () => {
-    const notes = mockNotes;
-    component.notes = mockNotes;
+    const notes = mockNotes();
+    component.notes = notes;
 
     fixture.detectChanges();
 
-    expect(
-      fixture.nativeElement
-        .querySelector('.note-item')
-        .classList.contains('pinned')
-    ).toBeTrue();
+    const pinnedList = fixture.nativeElement.querySelector('#pinned-notes');
+    expect(pinnedList.querySelectorAll('.note-item').length).toBe(1);
 
     component.togglePin(notes[0]);
 
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
-    expect(
-      fixture.nativeElement
-        .querySelector('.note-item')
-        .classList.contains('pinned')
-    ).toBeFalse();
+    expect(pinnedList.querySelectorAll('.note-item').length).toBe(0);
   });
 
   it("should show note's details when note is clicked", () => {
-    const notes = mockNotes;
+    const notes = mockNotes();
     component.notes = notes;
 
     fixture.detectChanges();
@@ -108,5 +97,5 @@ describe('NotesList', () => {
     fixture.detectChanges();
 
     expect(router.navigate).toHaveBeenCalledWith(['/notes', notes[0].id]);
-  })
+  });
 });
