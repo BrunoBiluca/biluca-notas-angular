@@ -67,6 +67,7 @@ describe('Login', () => {
 
     expect(getLoginError(fixture)).toBeTruthy();
     expect(getLoginError(fixture).textContent).toContain('Usuário não existe.');
+    expect(fixture.nativeElement.querySelector('#signup-redirect')).toBeTruthy();
   });
 
   it('should successfully login', () => {

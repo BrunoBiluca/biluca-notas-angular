@@ -1,0 +1,15 @@
+<auth-form-layout title="Que bom que você voltou 👋!!!">
+  <auth-text-input name="username" type="text" [ctrl]="username" />
+  <auth-text-input name="password" type="password" [ctrl]="password" />
+  @if(loginError()){
+  <mat-error id="login-error" class="error-message">
+    {{ loginError() }}
+  </mat-error>
+  @if(loginError().includes('Usuário não existe.')){
+  <div id="signup-redirect" class="error-message">
+    <a (click)="redirectToSignup()">Cadastrar-se</a>
+  </div>
+  } 
+}
+  <auth-submit-btn (onSubmit)="submitLogin()" text="Entrar" />
+</auth-form-layout>

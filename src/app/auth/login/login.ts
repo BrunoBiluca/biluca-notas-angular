@@ -6,8 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TextInput } from '../components/text-input/text-input';
-import { SubmitBtn } from "../components/submit-btn/submit-btn";
-import { FormLayout } from "../components/form-layout/form-layout";
+import { SubmitBtn } from '../components/submit-btn/submit-btn';
+import { FormLayout } from '../components/form-layout/form-layout';
 
 @Component({
   selector: 'app-login',
@@ -18,25 +18,10 @@ import { FormLayout } from "../components/form-layout/form-layout";
     MatButtonModule,
     TextInput,
     SubmitBtn,
-    FormLayout
-],
-  template: `
-    <auth-form-layout title="Que bom que você voltou 👋!!!">
-      <auth-text-input name="username" type="text" [ctrl]="username" />
-      <auth-text-input name="password" type="password" [ctrl]="password" />
-      @if(loginError()){
-      <mat-error id="login-error" class="error-message">{{
-        loginError()
-      }}</mat-error>
-      }
-      <auth-submit-btn (onSubmit)="submitLogin()" text="Entrar" />
-    </auth-form-layout>
-  `,
-  styles: `
-    .error-message {
-      text-align: center;
-    }
-  `,
+    FormLayout,
+  ],
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss'],
 })
 export class Login {
   username = new FormControl('');
@@ -73,5 +58,11 @@ export class Login {
       return;
     }
     this.router.navigate(['/notes']);
+  }
+
+  redirectToSignup() {
+    this.router.navigate(['/signup'], {
+      queryParams: { username: this.username.value },
+    });
   }
 }

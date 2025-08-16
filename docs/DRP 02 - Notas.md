@@ -96,7 +96,7 @@ A criação da nota é feita de acordo com [[#Modelagem]] descrita.
 ### RF 02 - Exibição de notas
 
 __Descrição__
-Como usuário quero verificar as notas criadas em no tipo de exibição escolhido
+Como usuário quero verificar as notas criadas no tipo de exibição escolhido
 
 #### Critérios de aceite
 
@@ -134,6 +134,23 @@ Como usuário quero ter a opção de ver todas as minhas notas exibidas em grade
 - **Dado** que o usuário está na página de notas
 - **Quando** está selecionada a opção de exibição por grade
 - **Então** todas as notas devem ser exibidas em grade, com no máximo 3 colunas
+
+### RF 02.03 Comportamento das notas na exibição
+
+__Descrição__
+Como usuário quero ver as notas respondendo as minhas ações
+
+#### Critérios de aceite
+
+**Cenário:** Nota exibida
+- **Dado** que o usuário está na página de exibição
+- **Quando** existe uma nota listada (seja lista ou grade)
+- **Então** a nota deve exibir apenas as informações principais
+
+**Cenário:** Nota destacada
+- **Dado** que o usuário está na página exibição
+- **Quando** passa o mouse sob a nota
+- **Então** a nota é destacada apresentando outras ações do usuário
 
 ### RF 03 - Detalhes da nota
 

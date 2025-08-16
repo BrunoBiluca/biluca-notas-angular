@@ -1,18 +1,22 @@
+:host {
+  --mat-card-outlined-outline-width: 0;
+}
+
 .note-item {
   cursor: pointer;
 }
 
 .note-header {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .note-footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
 
-    span {
-        font-size: small;
-        align-content: end;
-    }
+  span {
+    font-size: small;
+    align-content: end;
+  }
 }

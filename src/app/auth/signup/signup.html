@@ -1,0 +1,24 @@
+<auth-form-layout title="Sign Up!">
+  <auth-text-input
+    name="username"
+    type="text"
+    [ctrl]="username"
+    [error]="usernameError()"
+    (onBlur)="updateUsernameError()"
+  />
+  <auth-text-input
+    name="email"
+    type="email"
+    [ctrl]="email"
+    [error]="emailError()"
+    (onBlur)="updateEmailError()"
+  />
+  <auth-text-input
+    name="password"
+    type="password"
+    [ctrl]="password"
+    [error]="passwordError()"
+    (onBlur)="updatePasswordError()"
+  />
+  <auth-submit-btn (onSubmit)="submitSignup()" text="Criar" />
+</auth-form-layout>

@@ -13,7 +13,7 @@ import { Note } from 'app/notes/note.model';
     <mat-card
       appearance="outlined"
       class="note-item"
-      style="background-color: {{ note.color }}"
+      [style]="note.color === null ? 'border: 1px solid #868686' : 'background-color: ' + note.color"
       (click)="goToNoteDetail(note)"
     >
       <mat-card-header class="note-header">

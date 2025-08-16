@@ -1,7 +1,11 @@
-.notes-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+h3 {
+  margin: 0 1em;
+  color: rgb(83, 83, 83);
 }
 
-
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+}

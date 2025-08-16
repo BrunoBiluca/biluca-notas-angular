@@ -104,7 +104,7 @@ Eu como usuário registrado quero poder logar ao site para começar a interagir 
 - **Dado** que o usuário não existe (email não encontrado)
 - **Quando** quando ele as credenciais
 - **Então** é exibida uma mensagem explicitando o problema
-- **E** é dada a opção de fazer o cadastro
+- **E** é dada a opção de fazer o cadastro, utilizando dados já preenchidos
 
 ### RF 03 - Logout
 
