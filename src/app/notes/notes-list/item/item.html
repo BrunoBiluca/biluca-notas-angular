@@ -7,12 +7,19 @@
       : 'background-color: ' + note.color
   "
   (click)="goToNoteDetail(note)"
+  (mouseenter)="isHovered.set(true)"
+  (mouseleave)="isHovered.set(false)"
 >
   <mat-card-header class="note-header">
     <mat-card-title>
       {{ note.title }}
     </mat-card-title>
-    <button matIconButton (click)="handleTogglePin($event, note)">
+    <button
+      matIconButton
+      class="control"
+      [ngClass]="isHovered() ? 'active' : ''"
+      (click)="handleTogglePin($event, note)"
+    >
       @if(note.isPinned) {
       <mat-icon>push_pin</mat-icon>
       } @else {
@@ -38,8 +45,11 @@
     <span>
       {{ note.created_at | date : "dd/MM/yyyy" }}
     </span>
-    <div>
-      <button (click)="handleDelete($event, note)">delete</button>
+    <div class="control" [ngClass]="isHovered() ? 'active' : ''">
+      <button matIconButton (click)="handleDelete($event, note)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button matIconButton><mat-icon>more_vert</mat-icon></button>
     </div>
   </mat-card-footer>
 </mat-card>

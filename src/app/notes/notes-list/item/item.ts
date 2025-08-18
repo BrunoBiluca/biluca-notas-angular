@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,8 +16,9 @@ export class Item {
   @Input() note!: Note;
   @Output() onDelete = new EventEmitter<Note>();
   @Output() onTogglePin = new EventEmitter<Note>();
-
   router = inject(Router);
+
+  isHovered = signal<boolean>(false);
 
   handleTogglePin(event: Event, note: Note) {
     event.stopPropagation();
