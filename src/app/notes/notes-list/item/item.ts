@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { Note } from 'app/notes/note.model';
+import { Note } from 'app/notes/services/note.model';
 
 @Component({
   selector: 'item',

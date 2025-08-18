@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { Note } from '../note.model';
+import { Note } from '../services/note.model';
 
 @Component({
   selector: 'notes-grid',

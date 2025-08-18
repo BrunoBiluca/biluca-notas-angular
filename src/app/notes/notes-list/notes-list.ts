@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Note } from '../note.model';
+import { Note } from '../services/note.model';
 import { CommonModule } from '@angular/common';
 import { NotesService } from '../notes-service';
 import { Router } from '@angular/router';

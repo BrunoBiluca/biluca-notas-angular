@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { NotesService } from '../notes-service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { Note } from '../note.model';
+import { Note } from '../services/note.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

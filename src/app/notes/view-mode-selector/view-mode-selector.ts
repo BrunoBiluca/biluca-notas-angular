@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { NotesViewModeService } from '../notes-view-mode-service';
+import { NotesViewModeService } from '../services/notes-view-mode-service';
 
 @Component({
   selector: 'notes-view-mode-selector',

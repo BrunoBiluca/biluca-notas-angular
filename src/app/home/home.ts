@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   inject,
@@ -10,10 +9,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Grid } from 'app/notes/grid/grid';
 import { NoteForm } from 'app/notes/note-form/note-form';
-import { Note } from 'app/notes/note.model';
+import { Note } from 'app/notes/services/note.model';
 import { NotesList } from 'app/notes/notes-list/notes-list';
-import { NotesService } from 'app/notes/notes-service';
-import { NotesViewModeService } from 'app/notes/notes-view-mode-service';
+import { NotesService } from 'app/notes/services/notes-service';
+import { NotesViewModeService } from 'app/notes/services/notes-view-mode-service';
 import { ViewModeSelector } from 'app/notes/view-mode-selector/view-mode-selector';
 
 @Component({

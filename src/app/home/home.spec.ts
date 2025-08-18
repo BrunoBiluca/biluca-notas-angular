@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Home } from './home';
 import { NotesService } from 'app/notes/notes-service';
-import { NotesViewModeService } from 'app/notes/notes-view-mode-service';
+import { NotesViewModeService } from 'app/notes/services/notes-view-mode-service';
 import { BehaviorSubject, of } from 'rxjs';
-import { Note } from 'app/notes/note.model';
+import { Note } from 'app/notes/services/note.model';
 
 describe('Home', () => {
   let component: Home;
