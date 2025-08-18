@@ -8,16 +8,24 @@ describe('Item', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Item]
-    })
-    .compileComponents();
+      imports: [Item],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Item);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    component = fixture.componentInstance;
+    component.note = {
+      id: '1',
+      title: 'title',
+      content: 'content',
+      color: '#8FF0A4',
+      created_at: new Date(),
+      updated_at: new Date(),
+      user: 'bruno',
+    };
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
