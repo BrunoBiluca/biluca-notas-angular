@@ -11,7 +11,7 @@ import {
   MatInputModule,
   MatLabel,
 } from '@angular/material/input';
-import { NotesService } from '../notes-service';
+import { NotesService } from '../services/notes-service';
 import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 

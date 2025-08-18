@@ -4,7 +4,7 @@ import { Login } from './auth/login/login';
 import { Home } from './home/home';
 import { authGuard } from './auth/auth-guard';
 import { Layout } from './shared/layout/layout';
-import { Layout as AuthLayout} from './auth/layout/layout';
+import { Layout as AuthLayout } from './auth/layout/layout';
 import { NoteDetail } from './notes/note-detail/note-detail';
 
 export const routes: Routes = [
@@ -38,10 +38,12 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
-      },
-      {
-        path: ':id',
-        component: NoteDetail,
+        children: [
+          {
+            path: ':id',
+            component: NoteDetail,
+          },
+        ],
       },
     ],
   },

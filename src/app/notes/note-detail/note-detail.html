@@ -1,0 +1,22 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div
+    class="modal-content"
+    (click)="$event.stopPropagation()"
+    [style]="{ 'background-color': note()?.color }"
+  >
+    <button matIconButton class="close-button" (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    @if(note() !== null) {
+    <div class="note-details">
+      <h2>{{ note()?.title }}</h2>
+      <p>{{ note()?.content }}</p>
+      <div class="note-meta">
+        <span>Criada em: {{ note()?.created_at | date }}</span>
+        <span>Atualizada em: {{ note()?.updated_at | date }}</span>
+      </div>
+    </div>
+    }
+  </div>
+</div>

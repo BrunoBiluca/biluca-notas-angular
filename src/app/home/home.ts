@@ -14,10 +14,11 @@ import { NotesList } from 'app/notes/notes-list/notes-list';
 import { NotesService } from 'app/notes/services/notes-service';
 import { NotesViewModeService } from 'app/notes/services/notes-view-mode-service';
 import { ViewModeSelector } from 'app/notes/view-mode-selector/view-mode-selector';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, NoteForm, NotesList, Grid, ViewModeSelector],
+  imports: [FormsModule, NoteForm, NotesList, Grid, ViewModeSelector, RouterModule],
   templateUrl: `./home.html`,
   styleUrl: `./home.scss`,
 })

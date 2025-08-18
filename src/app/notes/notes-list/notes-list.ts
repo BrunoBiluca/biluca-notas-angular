@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Note } from '../services/note.model';
 import { CommonModule } from '@angular/common';
-import { NotesService } from '../notes-service';
+import { NotesService } from '../services/notes-service';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
