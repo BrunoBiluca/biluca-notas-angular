@@ -4,9 +4,7 @@ import { Logout } from "app/auth/logout/logout";
 @Component({
   selector: 'app-header',
   imports: [Logout],
-  template: `
-  <app-logout />
-  `,
-  styles: '',
+  templateUrl: './app-header.html',
+  styleUrl: './app-header.scss',
 })
 export class AppHeader {}

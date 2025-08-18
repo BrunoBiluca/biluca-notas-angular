@@ -19,26 +19,8 @@ import { ViewModeSelector } from 'app/notes/view-mode-selector/view-mode-selecto
 @Component({
   selector: 'app-home',
   imports: [FormsModule, NoteForm, NotesList, Grid, ViewModeSelector],
-  template: `
-    <h1>Notas</h1>
-    <note-form></note-form>
-    <input
-      id="search"
-      type="text"
-      placeholder="Pesquisar..."
-      [(ngModel)]="searchTerm"
-    />
-    <notes-view-mode-selector />
-    @if (searchTerm().length >= 3 && filteredNotes().length === 0) {
-    <p class="no-notes">Nenhuma nota encontrada</p>
-    }
-    @if (viewMode() === 'list') {
-    <notes-list [notes]="filteredNotes()" (onDelete)="deleteNote($event)" />
-    } @else if (viewMode() === 'grid') {
-    <notes-grid [notes]="filteredNotes()" />
-    }
-  `,
-  styles: ``,
+  templateUrl: `./home.html`,
+  styleUrl: `./home.scss`,
 })
 export class Home implements OnInit {
   notes = signal<Note[]>([]);
