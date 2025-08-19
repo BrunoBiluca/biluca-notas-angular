@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotesList } from './notes-list';
-import { NotesService } from '../notes-service';
+import { NotesService } from 'app/notes/services/notes-service';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from 'app/app.routes';
 
