@@ -6,7 +6,6 @@
   placeholder="Pesquisar..."
   [(ngModel)]="searchTerm"
 />
-<notes-view-mode-selector />
 @if (searchTerm().length >= 3 && filteredNotes().length === 0) {
 <p class="no-notes">Nenhuma nota encontrada</p>
 } @if (viewMode() === 'list') {
