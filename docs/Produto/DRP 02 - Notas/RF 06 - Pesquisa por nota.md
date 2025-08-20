@@ -5,6 +5,9 @@ Como usuário quero poder buscar por notas a partir de palavras contidas no tít
 
 #### Critérios de aceite
 
+ - Barra de pesquisa deve estar disponível em qualquer local da página de Notas
+	 - Um bom lugar é o cabeçalho
+
 **Cenário:** Busca por palavras
 - **Dado** que estou na página de Notas
 - **Quando** escrevo uma palavra (mínimo 3 caracteres)

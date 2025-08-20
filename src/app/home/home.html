@@ -1,11 +1,5 @@
 <h1>Notas</h1>
 <note-form></note-form>
-<input
-  id="search"
-  type="text"
-  placeholder="Pesquisar..."
-  [(ngModel)]="searchTerm"
-/>
 @if (searchTerm().length >= 3 && filteredNotes().length === 0) {
 <p class="no-notes">Nenhuma nota encontrada</p>
 } @if (viewMode() === 'list') {
