@@ -7,6 +7,7 @@
     type="text"
     placeholder="Pesquisar..."
     [(ngModel)]="searchTerm"
+    (ngModelChange)="onChangeSearchTerm()"
   />
   <button matIconButton>
     <mat-icon>cancel</mat-icon>

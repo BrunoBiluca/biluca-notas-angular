@@ -11,28 +11,7 @@ import { Item } from './item/item';
   selector: 'notes-list',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, Item],
-  template: `
-    <h3>{{ 'Fixadas' | uppercase }}</h3>
-    <ul id="pinned-notes" class="notes-list">
-      @for(note of getPinnedNotes(); track note.id) {
-      <item
-        [note]="note"
-        (onDelete)="onDelete.emit($event)"
-        (onTogglePin)="togglePin($event)"
-      ></item>
-      }
-    </ul>
-    <h3>{{ 'Outras' | uppercase }}</h3>
-    <ul id="other-notes" class="notes-list">
-      @for(note of getGeneralNotes(); track note.id) {
-      <item
-        [note]="note"
-        (onDelete)="onDelete.emit($event)"
-        (onTogglePin)="togglePin($event)"
-      ></item>
-      }
-    </ul>
-  `,
+  templateUrl: './notes-list.html',
   styleUrl: './notes-list.scss',
 })
 export class NotesList {

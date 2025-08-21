@@ -86,7 +86,6 @@ export class NoteForm {
   notesService = inject(NotesService);
 
   onSubmit() {
-    console.log(this.createNoteForm.get('content')!.errors);
     this.markFormGroupTouched(this.createNoteForm);
 
     if (this.createNoteForm.invalid) {

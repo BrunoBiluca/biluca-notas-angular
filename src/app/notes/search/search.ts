@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
+import { NoteSearch } from '../services/note-search';
 
 @Component({
   selector: 'notes-search',
@@ -11,4 +12,10 @@ import { MatButtonModule } from "@angular/material/button";
 })
 export class Search {
   searchTerm = signal<string>('');
+  noteSearch = inject(NoteSearch);
+
+  onChangeSearchTerm() {
+    this.noteSearch.update(this.searchTerm())
+  }
+
 }

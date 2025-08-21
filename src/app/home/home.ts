@@ -14,16 +14,11 @@ import { NotesList } from 'app/notes/notes-list/notes-list';
 import { NotesService } from 'app/notes/services/notes-service';
 import { NotesViewModeService } from 'app/notes/services/notes-view-mode-service';
 import { RouterModule } from '@angular/router';
+import { NoteSearch } from 'app/notes/services/note-search';
 
 @Component({
   selector: 'app-home',
-  imports: [
-    FormsModule,
-    NoteForm,
-    NotesList,
-    Grid,
-    RouterModule
-],
+  imports: [FormsModule, NoteForm, NotesList, Grid, RouterModule],
   templateUrl: `./home.html`,
   styleUrl: `./home.scss`,
 })
@@ -45,10 +40,15 @@ export class Home implements OnInit {
 
   viewMode = signal<string>('');
   notesViewModeService = inject(NotesViewModeService);
+  noteSearch = inject(NoteSearch);
 
   ngOnInit(): void {
     this.initViewMode();
     this.initNotes();
+    this.initNoteSearch();
+  }
+  initNoteSearch() {
+    this.noteSearch.current$().subscribe((v) => this.searchTerm.set(v));
   }
 
   initViewMode() {
