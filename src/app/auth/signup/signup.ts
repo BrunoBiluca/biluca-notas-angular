@@ -47,6 +47,19 @@ export class Signup {
   activetedRoute = inject(ActivatedRoute);
 
   constructor() {
+    this.bindFormWithErrorMessages();
+    this.initWithQueryParams();
+  }
+
+  private initWithQueryParams() {
+    this.activetedRoute.queryParamMap.subscribe((params) => {
+      if (params.get('username')) {
+        this.username.setValue(params.get('username'));
+      }
+    });
+  }
+
+  private bindFormWithErrorMessages() {
     merge(this.username.statusChanges, this.username.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateUsernameError());
@@ -58,12 +71,6 @@ export class Signup {
     merge(this.password.statusChanges, this.password.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updatePasswordError());
-
-    this.activetedRoute.queryParamMap.subscribe((params) => {
-      if (params.get('username')) {
-        this.username.setValue(params.get('username'));
-      }
-    });
   }
 
   updateUsernameError() {
