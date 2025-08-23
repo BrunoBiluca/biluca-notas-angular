@@ -8,7 +8,7 @@ Eu como usuário registrado quero poder logar ao site para começar a interagir 
 **Cenário:** Sucesso
 - Dado que o usuário está na página de login
 - Quando ele entra com seu email e senha
-- Então ele é redirecionado para a página de Notas
+- Então ele é redirecionado para a página de entrada configurada
 
 **Cenário:** Credenciais incorretas
 - **Dado** que o usuário está registrado (a partir do email)

@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { TextInput } from '../components/text-input/text-input';
 import { SubmitBtn } from '../components/submit-btn/submit-btn';
 import { FormLayout } from '../components/form-layout/form-layout';
+import { AUTH_CONFIG } from '../auth-config';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class Login {
   loginError = signal('');
   userService = inject(UserService);
   router = inject(Router);
+  config = inject(AUTH_CONFIG);
 
   submitLogin() {
     this.loginError.set('');
@@ -57,7 +59,7 @@ export class Login {
       this.loginError.set('Usuário não existe.');
       return;
     }
-    this.router.navigate(['/notes']);
+    this.router.navigate([this.config.redirectAfterLogin]);
   }
 
   redirectToSignup() {

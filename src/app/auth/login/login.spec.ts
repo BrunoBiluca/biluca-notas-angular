@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Login } from './login';
 import { provideRouter, Router } from '@angular/router';
 import { UserNotFoundError, UserService } from '../user-service';
+import { AUTH_CONFIG } from '../auth-config';
 
 describe('Login', () => {
   let component: Login;
@@ -20,6 +21,7 @@ describe('Login', () => {
       imports: [Login],
       providers: [
         provideRouter([]),
+        { provide: AUTH_CONFIG, useValue: { redirectAfterLogin: '/notes' } },
         { provide: UserService, useValue: userService },
       ],
     }).compileComponents();
@@ -67,7 +69,9 @@ describe('Login', () => {
 
     expect(getLoginError(fixture)).toBeTruthy();
     expect(getLoginError(fixture).textContent).toContain('Usuário não existe.');
-    expect(fixture.nativeElement.querySelector('#signup-redirect')).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('#signup-redirect')
+    ).toBeTruthy();
   });
 
   it('should successfully login', () => {

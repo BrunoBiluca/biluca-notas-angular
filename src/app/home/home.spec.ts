@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Home } from './home';
 import { NotesService } from 'app/notes/services/notes-service';
 import { NotesViewModeService } from 'app/notes/services/notes-view-mode-service';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Note } from 'app/notes/services/note.model';
+import { NoteSearch } from 'app/notes/services/note-search';
 
 describe('Home', () => {
   let component: Home;
@@ -20,13 +21,19 @@ describe('Home', () => {
     'getCurrent',
     'viewMode$',
   ]);
+  let noteSearch = jasmine.createSpyObj(NoteSearch, ['current$']);
+  let searchTerm: BehaviorSubject<string>;
 
   beforeEach(async () => {
+    searchTerm = new BehaviorSubject<string>('');
+    noteSearch.current$.and.callFake(() => searchTerm.asObservable());
+
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [
         { provide: NotesService, useValue: notesService },
         { provide: NotesViewModeService, useValue: notesViewModeService },
+        { provide: NoteSearch, useValue: noteSearch },
       ],
     }).compileComponents();
 
@@ -76,8 +83,6 @@ describe('Home', () => {
   });
 
   it('should display main components', () => {
-    expect(getSearchInput(fixture)).toBeTruthy();
-    expect(getNotesViewModeSelector(fixture)).toBeTruthy();
     expect(getNotesView('list', fixture)).toBeTruthy();
   });
 
@@ -114,41 +119,39 @@ describe('Home', () => {
   });
 
   it('should display notes that match search term by title', () => {
-    const searchInput = fixture.nativeElement.querySelector('#search');
-    searchInput.value = 'note 1';
-    searchInput.dispatchEvent(new Event('input'));
+    searchTerm.next('note 1');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
+  });
+
+  it('should display notes that match search term by content', () => {
+    searchTerm.next('def');
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
 
     // reset search
-    searchInput.value = '';
-    searchInput.dispatchEvent(new Event('input'));
+    searchTerm.next('');
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
   });
 
-  it('should display notes that match search term by content', () => {
-    const searchInput = fixture.nativeElement.querySelector('#search');
-    searchInput.value = 'def';
-    searchInput.dispatchEvent(new Event('input'));
+  it('should display all notes when searchReset to an empty state', () => {
+    searchTerm.next('def');
     fixture.detectChanges();
-
     expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(1);
 
     // reset search
-    searchInput.value = '';
-    searchInput.dispatchEvent(new Event('input'));
+    searchTerm.next('');
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(2);
   });
 
   it('should display message when there are no notes', () => {
-    const searchInput = fixture.nativeElement.querySelector('#search');
-    searchInput.value = 'non-existing-note';
-    searchInput.dispatchEvent(new Event('input'));
+    searchTerm.next('non-existing-note');
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('.no-notes')).toBeTruthy();
