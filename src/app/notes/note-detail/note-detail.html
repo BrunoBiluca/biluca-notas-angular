@@ -8,7 +8,14 @@
       <mat-icon>close</mat-icon>
     </button>
 
-    @if(note() !== null) {
+    @if(note() !== null) { 
+      @if(images().length > 0) {
+    <div class="note-images">
+      @for (image of images(); track $index) {
+      <img src="{{ image }}" title="{{ image }}" />
+      }
+    </div>
+    }
     <div class="note-details">
       <h2>{{ note()?.title }}</h2>
       <p>{{ note()?.content }}</p>

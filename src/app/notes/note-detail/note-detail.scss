@@ -31,12 +31,28 @@
   cursor: pointer;
 }
 
+.note-images {
+  display: flex;
+  margin: 1em 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.1em;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    flex: 1;
+    object-fit: cover;
+  }
+}
+
 .note-details {
   h2 {
     margin-top: 0;
     color: #333;
   }
-  
+
   p {
     white-space: pre-wrap;
     margin-bottom: 1.5rem;

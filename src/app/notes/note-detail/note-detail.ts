@@ -19,10 +19,15 @@ export class NoteDetail implements OnInit {
   router = inject(Router);
   route = inject(ActivatedRoute);
 
+  images = signal<string[]>([]);
+
   ngOnInit(): void {
     this.route.params
       .pipe(switchMap((params) => this.notesService.get(params['id'])))
-      .subscribe((n) => this.note.set(n));
+      .subscribe((n) => {
+        this.note.set(n);
+        this.images.set(n.images.map((image) => URL.createObjectURL(image)));
+      });
   }
 
   closeModal() {
