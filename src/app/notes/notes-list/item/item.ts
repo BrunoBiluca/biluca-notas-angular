@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,13 +20,20 @@ import { Note } from 'app/notes/services/note.model';
   templateUrl: './item.html',
   styleUrl: './item.scss',
 })
-export class Item {
+export class Item implements OnInit {
   @Input() note!: Note;
   @Output() onDelete = new EventEmitter<Note>();
   @Output() onTogglePin = new EventEmitter<Note>();
   router = inject(Router);
 
   isHovered = signal<boolean>(false);
+  images = signal<string[]>([]);
+
+  ngOnInit(): void {
+    this.images.set(
+      this.note.images.map((image) => URL.createObjectURL(image))
+    );
+  }
 
   handleTogglePin(event: Event, note: Note) {
     event.stopPropagation();

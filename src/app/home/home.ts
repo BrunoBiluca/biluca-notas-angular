@@ -58,7 +58,7 @@ export class Home implements OnInit {
   }
 
   initNotes() {
-    this.notesService.getAll();
+    this.notesService.getAll().then((notes) => this.notes.set(notes));
     this.notesService.notes$().subscribe((notes) => this.notes.set(notes));
   }
 

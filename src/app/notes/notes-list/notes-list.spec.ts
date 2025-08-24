@@ -4,6 +4,7 @@ import { NotesList } from './notes-list';
 import { NotesService } from 'app/notes/services/notes-service';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from 'app/app.routes';
+import { Note } from '../services/note.model';
 
 describe('NotesList', () => {
   let component: NotesList;
@@ -11,13 +12,15 @@ describe('NotesList', () => {
 
   let router: Router;
   let notesService = jasmine.createSpyObj('NotesService', ['update']);
-  const mockNotes = () => [
+  const mockNotes = (): Note[] => [
     {
       id: '1',
       title: 'title',
       content: 'content',
       color: '#8FF0A4',
       isPinned: true,
+      imagesIds: [],
+      images: [],
       created_at: new Date(),
       updated_at: new Date(),
       user: 'bruno',
@@ -27,6 +30,8 @@ describe('NotesList', () => {
       title: 'title',
       content: 'content',
       color: '#8FF0A4',
+      imagesIds: [],
+      images: [],
       created_at: new Date(),
       updated_at: new Date(),
       user: 'bruno',

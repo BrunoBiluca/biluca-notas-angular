@@ -21,6 +21,8 @@ describe('Item', () => {
       title: 'title',
       content: 'content',
       color: '#8FF0A4',
+      imagesIds: [],
+      images: [],
       created_at: new Date(),
       updated_at: new Date(),
       user: 'bruno',

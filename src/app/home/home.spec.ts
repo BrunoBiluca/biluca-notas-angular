@@ -39,12 +39,14 @@ describe('Home', () => {
 
     const notesSubject = new BehaviorSubject<Note[]>([]);
     notesService.getAll.and.callFake(() => {
-      notesSubject.next([
+      const notes: Note[] = [
         {
           id: '1',
           title: 'note 1',
           content: 'abc',
           color: '#8FF0A4',
+          images: [],
+          imagesIds: [],
           created_at: new Date(),
           updated_at: new Date(),
           user: 'bruno',
@@ -54,11 +56,15 @@ describe('Home', () => {
           title: 'note 2',
           content: 'def',
           color: '#8FF0A4',
+          images: [],
+          imagesIds: [],
           created_at: new Date(),
           updated_at: new Date(),
           user: 'bruno',
         },
-      ]);
+      ]
+      notesSubject.next(notes);
+      return Promise.resolve(notes);
     });
     notesService.notes$.and.callFake(() => notesSubject.asObservable());
     notesService.delete.and.callFake((note: Note) => {
@@ -109,6 +115,8 @@ describe('Home', () => {
       title: 'title',
       content: 'content',
       color: '#8FF0A4',
+      images: [],
+      imagesIds: [],
       created_at: new Date(),
       updated_at: new Date(),
       user: 'bruno',
@@ -160,12 +168,4 @@ describe('Home', () => {
 
 function getNotesView(mode: 'grid' | 'list', fixture: ComponentFixture<Home>) {
   return fixture.nativeElement.querySelector('notes-' + mode);
-}
-
-function getNotesViewModeSelector(fixture: ComponentFixture<Home>) {
-  return fixture.nativeElement.querySelector('notes-view-mode-selector');
-}
-
-function getSearchInput(fixture: ComponentFixture<Home>) {
-  return fixture.nativeElement.querySelector('#search');
 }
