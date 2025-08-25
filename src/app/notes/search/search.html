@@ -9,7 +9,9 @@
     [(ngModel)]="searchTerm"
     (ngModelChange)="updateGlobally()"
   />
+  @if(searchTerm().length > 0) {
   <button matIconButton (click)="clear()">
     <mat-icon>cancel</mat-icon>
   </button>
+  }
 </div>
