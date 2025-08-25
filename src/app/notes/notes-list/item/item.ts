@@ -30,6 +30,12 @@ export class Item implements OnInit {
   images = signal<string[]>([]);
 
   ngOnInit(): void {
+    this.initImages();
+  }
+
+  private initImages() {
+    if (this.note.images.length === 0) return;
+
     this.images.set(
       this.note.images.map((image) => URL.createObjectURL(image))
     );

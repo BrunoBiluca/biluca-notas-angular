@@ -23,10 +23,13 @@ export class NotesService {
         const note = JSON.parse(localStorage.getItem(key)!) as Note;
 
         note.images = [];
-        for (const imageId of note.imagesIds) {
-          const image = await this.indexedDB.getFile(imageId);
-          note.images.push(image);
+        if (note.imagesIds) {
+          for (const imageId of note.imagesIds) {
+            const image = await this.indexedDB.getFile(imageId);
+            note.images.push(image);
+          }
         }
+
         notes.push(note);
       }
     }
