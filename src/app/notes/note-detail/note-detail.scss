@@ -48,9 +48,30 @@
 }
 
 .note-details {
-  h2 {
-    margin-top: 0;
+  .input-text {
+    display: block;
+    width: 100%;
     color: #333;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    box-shadow: 0;
+
+    &:focus {
+      border: 0;
+      outline: 0;
+    }
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    font-size: 1rem;
+    margin-bottom: 1rem;
   }
 
   p {

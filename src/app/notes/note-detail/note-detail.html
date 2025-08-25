@@ -8,8 +8,7 @@
       <mat-icon>close</mat-icon>
     </button>
 
-    @if(note() !== null) { 
-      @if(images().length > 0) {
+    @if(note() !== null) { @if(images().length > 0) {
     <div class="note-images">
       @for (image of images(); track $index) {
       <img src="{{ image }}" title="{{ image }}" />
@@ -17,8 +16,18 @@
     </div>
     }
     <div class="note-details">
-      <h2>{{ note()?.title }}</h2>
-      <p>{{ note()?.content }}</p>
+      <input
+        class="input-text title"
+        type="text"
+        [(ngModel)]="title"
+        (ngModelChange)="save()"
+      />
+      <input
+        class="input-text content"
+        type="text"
+        [(ngModel)]="content"
+        (ngModelChange)="save()"
+      />
       <div class="note-meta">
         <span>Criada em: {{ note()?.created_at | date }}</span>
         <span>Atualizada em: {{ note()?.updated_at | date }}</span>

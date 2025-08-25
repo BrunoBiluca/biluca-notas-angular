@@ -30,7 +30,7 @@ export class NotesService {
         notes.push(note);
       }
     }
-    this.notes.push(...notes);
+    this.notes = notes;
     this.notesSubject.next(this.notes);
     return notes;
   }
@@ -79,6 +79,7 @@ export class NotesService {
 
     const updatedNote = { ...note, ...updatedValues, updated_at: new Date() };
     localStorage.setItem('note_' + id, JSON.stringify(updatedNote));
+    this.getAll();
     return updatedNote;
   }
 
