@@ -26,3 +26,9 @@ Como usuário quero ordenar automaticamente as notas pelos seus atributos orden�
 - **E** a opção de ordenação por data de criação foi selecionada
 - **Quando** ele seleciona a opção de ordenação por data de criação (novamente)
 - **Então** as notas são ordenadas da mais antiga para a mais recente
+
+**Cenário:** Manutenção da ordenação
+- **Dado** que estou na tela de Notas
+- **E** já existe uma ordenação selecionada
+- **Quando** adiciono/edito uma nota
+- **Então** ela deve ser inserida de acordo com a ordenação selecionada

@@ -10,7 +10,10 @@ import { IndexedDB } from 'common/indexeddb';
 export class NotesService {
   private notesSubject = new BehaviorSubject<Note[]>([]);
   private notes: Note[] = [];
+  private orderFunc: (n1: Note, n2: Note) => number = (n1, n2) => 0;
   indexedDB = inject(IndexedDB);
+
+  notes$ = (): Observable<Note[]> => this.notesSubject.asObservable();
 
   private getFromStorage(id: string): Note {
     const noteStorage = localStorage.getItem('note_' + id);
@@ -20,7 +23,10 @@ export class NotesService {
     return JSON.parse(noteStorage!) as Note;
   }
 
-  notes$ = (): Observable<Note[]> => this.notesSubject.asObservable();
+  private updateNotes() {
+    this.notes = this.notes.sort(this.orderFunc);
+    this.notesSubject.next(this.notes);
+  }
 
   async getAll(): Promise<Note[]> {
     const notes: Note[] = [];
@@ -40,8 +46,9 @@ export class NotesService {
         notes.push(note);
       }
     }
+
     this.notes = notes;
-    this.notesSubject.next(this.notes);
+    this.updateNotes();
     return notes;
   }
 
@@ -73,7 +80,7 @@ export class NotesService {
 
     const fullNote = { ...newNote, images: note.images };
     this.notes.push(fullNote);
-    this.notesSubject.next(this.notes);
+    this.updateNotes();
     return fullNote;
   }
 
@@ -97,7 +104,12 @@ export class NotesService {
     }
 
     this.notes = this.notes.filter((n) => n.id !== note.id);
-    this.notesSubject.next(this.notes);
+    this.updateNotes();
     return note;
+  }
+
+  setOrderFunc(f: (n1: Note, n2: Note) => number) {
+    this.orderFunc = f;
+    this.notesSubject.next([...this.notes.sort(f)]);
   }
 }
