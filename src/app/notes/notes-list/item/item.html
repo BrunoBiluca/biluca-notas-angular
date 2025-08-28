@@ -2,9 +2,12 @@
   appearance="outlined"
   class="note-item"
   [style]="
-    note.color === null
+    note.color === null ||
+    note.color === 'white' ||
+    note.color === '#ffffff' ||
+    note.color === 'rgb(255, 255, 255)'
       ? 'border: 1px solid #868686'
-      : 'background-color: ' + note.color
+      : 'background-color: ' + note.color + '; border: 1px solid ' + note.color
   "
   (click)="goToNoteDetail(note)"
   (mouseenter)="isHovered.set(true)"
@@ -13,10 +16,7 @@
   @if(images().length > 0) {
   <div class="note-images">
     @for (image of images(); track $index) {
-    <img
-      src="{{ image }}"
-      title="{{ image }}"
-    />
+    <img src="{{ image }}" title="{{ image }}" />
     }
   </div>
   }

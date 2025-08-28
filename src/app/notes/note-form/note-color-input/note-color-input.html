@@ -1,0 +1,12 @@
+<div class="color-picker-container">
+  <input
+    #colorInput
+    type="color"
+    name="color"
+    [(ngModel)]="color"
+    (ngModelChange)="update()"
+  />
+  <button matIconButton (click)="colorInput.click()">
+    <mat-icon>color_lens</mat-icon>
+  </button>
+</div>

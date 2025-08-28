@@ -7,10 +7,17 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { NoteColorInput } from '../note-form/note-color-input/note-color-input';
 
 @Component({
   selector: 'note-detail',
-  imports: [CommonModule, MatButtonModule, MatIconModule, FormsModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    NoteColorInput,
+  ],
   templateUrl: './note-detail.html',
   styleUrl: './note-detail.scss',
 })
@@ -18,6 +25,7 @@ export class NoteDetail implements OnInit {
   note = signal<Note | undefined>(undefined);
   title = signal('');
   content = signal<string | null>('');
+  color = signal<string>('white');
   notesService = inject(NotesService);
   router = inject(Router);
   route = inject(ActivatedRoute);
@@ -31,6 +39,7 @@ export class NoteDetail implements OnInit {
         this.note.set(n);
         this.title.set(n.title);
         this.content.set(n.content);
+        this.color.set(n.color ? n.color : 'white');
         this.images.set(n.images.map((image) => URL.createObjectURL(image)));
       });
   }
@@ -39,6 +48,13 @@ export class NoteDetail implements OnInit {
     this.notesService.update(this.note()!.id, {
       title: this.title(),
       content: this.content(),
+    });
+  }
+
+  updateColor(color: string) {
+    this.color.set(color);
+    this.notesService.update(this.note()!.id, {
+      color: color,
     });
   }
 

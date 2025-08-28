@@ -26,34 +26,37 @@
     </mat-error>
     }
   </mat-form-field>
-  <mat-form-field>
-    <mat-label for="color">Color</mat-label>
-    <input matInput type="color" formControlName="color" id="color" />
-  </mat-form-field>
 
-  <div>
-    <input
-      type="file"
-      multiple
-      #fileInput
-      style="display: none"
-      (change)="onImagesSelected($event)"
-    />
-    <button
-      matIconButton
-      type="button"
-      (click)="fileInput.click()"
-      style="background-color: transparent; border: 0"
-    >
-      <mat-icon>image</mat-icon>
-    </button>
-    @if (images().length > 0) {
-    <div class="images-container">
-      @for (i of imagesPreview(); track $index) {
-      <img [src]="i" alt="" />
+  <div class="controls">
+    <note-color-input
+      name="color"
+      (onColorChange)="onColorChange($event)"
+    ></note-color-input>
+    <div class="images">
+      <input
+        type="file"
+        multiple
+        name="images"
+        #fileInput
+        style="display: none"
+        (change)="onImagesSelected($event)"
+      />
+      <button
+        matIconButton
+        type="button"
+        (click)="fileInput.click()"
+        style="background-color: transparent; border: 0"
+      >
+        <mat-icon>image</mat-icon>
+      </button>
+      @if (images().length > 0) {
+      <div class="images-container">
+        @for (i of imagesPreview(); track $index) {
+        <img [src]="i" alt="" />
+        }
+      </div>
       }
     </div>
-    }
   </div>
 
   <button

@@ -8,9 +8,8 @@ describe('NoteForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoteForm]
-    })
-    .compileComponents();
+      imports: [NoteForm],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NoteForm);
     component = fixture.componentInstance;
@@ -21,16 +20,18 @@ describe('NoteForm', () => {
     const title = getTitleField(fixture);
     const content = getContentField(fixture);
     const color = getColorField(fixture);
+    const images = getImagesField(fixture);
     const submitBtn = getSubmitBtn(fixture);
 
     expect(component).toBeTruthy();
     expect(title).toBeTruthy();
     expect(content).toBeTruthy();
     expect(color).toBeTruthy();
+    expect(images).toBeTruthy();
     expect(submitBtn).toBeTruthy();
   });
 
-  it("should invalidate form when title is empty", () => {
+  it('should invalidate form when title is empty', () => {
     component.createNoteForm.get('title')!.markAsTouched();
     const submitBtn = getSubmitBtn(fixture);
     fixture.detectChanges();
@@ -39,25 +40,27 @@ describe('NoteForm', () => {
     expect(submitBtn.disabled).toBeTrue();
   });
 
-  it("should invalidate form when content is more than X characters", () => {
+  it('should invalidate form when content is more than X characters', () => {
     const title = getTitleField(fixture);
     component.createNoteForm.get('title')!.markAsTouched();
-    title.value = "title";
+    title.value = 'title';
     title.dispatchEvent(new Event('input'));
 
     const content = getContentField(fixture);
     component.createNoteForm.get('content')!.markAsTouched();
-    content.value = "a".repeat(201);
+    content.value = 'a'.repeat(201);
     content.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
     expect(component.createNoteForm.invalid).toBeTrue();
-    expect(fixture.nativeElement.querySelector("[id='content-error']")).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector("[id='content-error']")
+    ).toBeTruthy();
   });
 
-  it("should submit form when all validations are passed", () => {
+  it('should submit form when all validations are passed', () => {
     const title = getTitleField(fixture);
-    title.value = "title";
+    title.value = 'title';
     title.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
@@ -70,14 +73,19 @@ function getSubmitBtn(fixture: ComponentFixture<NoteForm>) {
 }
 
 function getColorField(fixture: ComponentFixture<NoteForm>) {
-  return fixture.nativeElement.querySelector("input[formControlName='color']");
+  return fixture.nativeElement.querySelector("[name='color']");
 }
 
 function getContentField(fixture: ComponentFixture<NoteForm>) {
-  return fixture.nativeElement.querySelector("textarea[formControlName='content']");
+  return fixture.nativeElement.querySelector(
+    "textarea[formControlName='content']"
+  );
 }
 
 function getTitleField(fixture: ComponentFixture<NoteForm>) {
   return fixture.nativeElement.querySelector("input[formControlName='title']");
 }
 
+function getImagesField(fixture: ComponentFixture<NoteForm>) {
+  return fixture.nativeElement.querySelector("[name='images']");
+}

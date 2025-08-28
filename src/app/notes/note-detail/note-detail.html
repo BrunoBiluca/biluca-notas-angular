@@ -2,7 +2,7 @@
   <div
     class="modal-content"
     (click)="$event.stopPropagation()"
-    [style]="{ 'background-color': note()?.color }"
+    [style]="{ 'background-color': color() }"
   >
     <button matIconButton class="close-button" (click)="closeModal()">
       <mat-icon>close</mat-icon>
@@ -34,9 +34,7 @@
       </div>
     </div>
     <div class="controls">
-      <button matIconButton>
-        <mat-icon>color_lens</mat-icon>
-      </button>
+      <note-color-input [color]="color()" (onColorChange)="updateColor($event)"></note-color-input>
     </div>
     }
   </div>

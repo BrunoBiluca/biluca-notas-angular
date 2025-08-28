@@ -15,6 +15,7 @@ import { NotesService } from '../services/notes-service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NoteColorInput } from './note-color-input/note-color-input';
 
 @Component({
   selector: 'note-form',
@@ -26,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     CommonModule,
     MatIconModule,
+    NoteColorInput,
   ],
   templateUrl: `note-form.html`,
   styleUrl: `note-form.scss`,
@@ -50,6 +52,10 @@ export class NoteForm {
     if (!images) return;
 
     this.images.set(Array.from(images));
+  }
+
+  onColorChange($event: string) {
+    this.createNoteForm.get('color')!.setValue($event);
   }
 
   async onSubmit() {

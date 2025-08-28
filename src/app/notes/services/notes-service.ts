@@ -10,17 +10,24 @@ import { IndexedDB } from 'common/indexeddb';
 export class NotesService {
   private notesSubject = new BehaviorSubject<Note[]>([]);
   private notes: Note[] = [];
+  indexedDB = inject(IndexedDB);
+
+  private getFromStorage(id: string): Note {
+    const noteStorage = localStorage.getItem('note_' + id);
+    if (!noteStorage) {
+      throw new Error('Note not found');
+    }
+    return JSON.parse(noteStorage!) as Note;
+  }
 
   notes$ = (): Observable<Note[]> => this.notesSubject.asObservable();
-
-  indexedDB = inject(IndexedDB);
 
   async getAll(): Promise<Note[]> {
     const notes: Note[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key?.startsWith('note_')) {
-        const note = JSON.parse(localStorage.getItem(key)!) as Note;
+        const note = this.getFromStorage(key.substring(5));
 
         note.images = [];
         if (note.imagesIds) {
@@ -39,11 +46,7 @@ export class NotesService {
   }
 
   get(id: string): Observable<Note> {
-    const note = this.notes.find((n) => n.id === id);
-    if (!note) {
-      throw new Error('Note not found');
-    }
-    return of(note);
+    return of(this.getFromStorage(id));
   }
 
   async create(note: NoteCreateParams) {

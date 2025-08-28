@@ -24,3 +24,9 @@
     object-fit: contain;
   }
 }
+
+.controls {
+  display: flex;
+  gap: 1em;
+  flex-direction: row;
+}
