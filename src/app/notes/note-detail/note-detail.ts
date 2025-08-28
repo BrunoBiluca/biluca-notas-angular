@@ -22,14 +22,14 @@ import { NoteColorInput } from '../note-form/note-color-input/note-color-input';
   styleUrl: './note-detail.scss',
 })
 export class NoteDetail implements OnInit {
-  note = signal<Note | undefined>(undefined);
-  title = signal('');
-  content = signal<string | null>('');
-  color = signal<string>('white');
   notesService = inject(NotesService);
   router = inject(Router);
   route = inject(ActivatedRoute);
 
+  note = signal<Note | undefined>(undefined);
+  title = signal('');
+  content = signal<string | null>('');
+  color = signal<string>('white');
   images = signal<string[]>([]);
 
   ngOnInit(): void {

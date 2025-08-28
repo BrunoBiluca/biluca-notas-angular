@@ -15,12 +15,21 @@ export class NotesService {
 
   notes$ = (): Observable<Note[]> => this.notesSubject.asObservable();
 
-  private getFromStorage(id: string): Note {
+  private async getFromStorage(id: string): Promise<Note> {
     const noteStorage = localStorage.getItem('note_' + id);
     if (!noteStorage) {
       throw new Error('Note not found');
     }
-    return JSON.parse(noteStorage!) as Note;
+
+    const note: Note = JSON.parse(noteStorage);
+    note.images = [];
+    if (note.imagesIds) {
+      for (const imageId of note.imagesIds) {
+        const image = await this.indexedDB.getFile(imageId);
+        note.images.push(image);
+      }
+    }
+    return note;
   }
 
   private updateNotes() {
@@ -33,17 +42,7 @@ export class NotesService {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key?.startsWith('note_')) {
-        const note = this.getFromStorage(key.substring(5));
-
-        note.images = [];
-        if (note.imagesIds) {
-          for (const imageId of note.imagesIds) {
-            const image = await this.indexedDB.getFile(imageId);
-            note.images.push(image);
-          }
-        }
-
-        notes.push(note);
+        notes.push(await this.getFromStorage(key.substring(5)));
       }
     }
 
@@ -52,8 +51,8 @@ export class NotesService {
     return notes;
   }
 
-  get(id: string): Observable<Note> {
-    return of(this.getFromStorage(id));
+  async get(id: string): Promise<Note> {
+    return this.getFromStorage(id);
   }
 
   async create(note: NoteCreateParams) {
