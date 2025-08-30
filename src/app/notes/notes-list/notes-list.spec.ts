@@ -74,19 +74,20 @@ describe('NotesList', () => {
   });
 
   it('should unpin note', () => {
+    const onTogglePin = spyOn(component.onTogglePin, 'emit');
     const notes = mockNotes();
     component.notes = notes;
 
     fixture.detectChanges();
 
-    const pinnedList = fixture.nativeElement.querySelector('#pinned-notes');
-    expect(pinnedList.querySelectorAll('.note-item').length).toBe(1);
+    const pinnedNoteButton = fixture.nativeElement
+      .querySelector('#pinned-notes')
+      .querySelector('.note-item')
+      .querySelector('button[data-action="toggle-pin"]');
 
-    component.togglePin(notes[0]);
+    pinnedNoteButton.dispatchEvent(new Event('click'));
 
-    fixture.detectChanges();
-
-    expect(pinnedList.querySelectorAll('.note-item').length).toBe(0);
+    expect(onTogglePin).toHaveBeenCalledWith(notes[0]);
   });
 
   it("should show note's details when note is clicked", () => {

@@ -1,3 +1,7 @@
+:host {
+  --mat-card-outlined-outline-width: 0;
+}
+
 h3 {
   margin: 0 1em;
   color: rgb(83, 83, 83);
@@ -8,4 +12,57 @@ h3 {
   flex-direction: column;
   gap: 1rem;
   padding: 0;
+}
+
+.note-item {
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 4px 8px rgba(100, 100, 100, 0.5);
+
+    .startHidden {
+      opacity: 1;
+    }
+  }
+}
+
+.note-header {
+  justify-content: space-between;
+}
+
+.note-images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.1em;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    flex: 1;
+    object-fit: cover;
+  }
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+
+  span {
+    font-size: small;
+    align-content: end;
+    padding: 8px 0;
+  }
+}
+
+.control {
+  cursor: pointer;
+}
+
+.startHidden {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }

@@ -42,10 +42,10 @@ export class Home implements OnInit {
   notesViewModeService = inject(NotesViewModeService);
   noteSearch = inject(NoteSearch);
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.initViewMode();
-    this.initNotes();
     this.initNoteSearch();
+    await this.initNotes();
   }
   initNoteSearch() {
     this.noteSearch.current$().subscribe((v) => this.searchTerm.set(v));
@@ -57,8 +57,8 @@ export class Home implements OnInit {
     });
   }
 
-  initNotes() {
-    this.notesService.getAll().then((notes) => this.notes.set(notes));
+  async initNotes() {
+    this.notes.set(await this.notesService.getAll());
     this.notesService.notes$().subscribe((notes) => this.notes.set(notes));
   }
 
