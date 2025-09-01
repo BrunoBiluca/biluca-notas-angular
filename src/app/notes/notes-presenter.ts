@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   EventEmitter,
   inject,
   Input,
