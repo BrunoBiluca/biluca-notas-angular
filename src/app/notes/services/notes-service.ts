@@ -98,8 +98,10 @@ export class NotesService {
   async delete(note: Note): Promise<Note> {
     localStorage.removeItem('note_' + note.id);
 
-    for (const imageId of note.imagesIds) {
-      await this.indexedDB.deleteFile(imageId);
+    if (note.imagesIds) {
+      for (const imageId of note.imagesIds) {
+        await this.indexedDB.deleteFile(imageId);
+      }
     }
 
     this.notes = this.notes.filter((n) => n.id !== note.id);

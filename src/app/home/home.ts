@@ -62,6 +62,12 @@ export class Home implements OnInit {
     this.notesService.notes$().subscribe((notes) => this.notes.set(notes));
   }
 
+  togglePin(note: Note) {
+    this.notesService.update(note.id, {
+      isPinned: !note.isPinned,
+    });
+  }
+
   deleteNote(note: Note) {
     this.notesService.delete(note);
   }

@@ -14,7 +14,6 @@ export class NoteColorInput {
   onColorChange = output<string>();
 
   update() {
-    console.log(this.color);
     this.onColorChange.emit(this.color());
   }
 }

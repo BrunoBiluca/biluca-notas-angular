@@ -1,21 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { Note } from '../services/note.model';
+import { NotesPresenter } from '../notes-presenter';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { FileToURLPipe } from 'common/file-to-url-pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'notes-grid',
-  imports: [CommonModule, MatGridListModule],
-  template: `
-    <mat-grid-list cols="3" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let n of notes" class="note-item" style="background-color: {{ n.color }};">
-        <h3>{{ n.title }}</h3>
-        <p>{{ n.content }}</p>
-        <p>{{ n.created_at | date : 'dd/MM/yyyy' }}</p>
-      </mat-grid-tile>
-    </mat-grid-list>
-  `,
+  imports: [
+    CommonModule,
+    MatGridListModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    FileToURLPipe,
+  ],
+  templateUrl: `grid.html`,
+  styleUrls: ['grid.scss'],
 })
-export class Grid {
-  @Input() notes: Note[] = [];
-}
+export class Grid extends NotesPresenter {}

@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { NotesPresenter } from "./notes-presenter";
-import { provideRouter, Router } from "@angular/router";
-import { Note } from "./services/note.model";
-import { routes } from "app/app.routes";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NotesPresenter } from './notes-presenter';
+import { provideRouter, Router } from '@angular/router';
+import { Note } from './services/note.model';
+import { routes } from 'app/app.routes';
 
 type ClassType<T> = new (...args: any[]) => T;
 
@@ -63,7 +63,7 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
       );
     });
 
-    it('should pin note in pinned list', () => {
+    it('should display pinned notes in pinned area', () => {
       component.notes = mockNotes();
 
       fixture.detectChanges();
@@ -72,7 +72,7 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
       expect(pinnedList.querySelectorAll('.note-item').length).toBe(1);
     });
 
-    it('should unpin note', () => {
+    it('should display unpinned notes in others notes area', () => {
       const onTogglePin = spyOn(component.onTogglePin, 'emit');
       const notes = mockNotes();
       component.notes = notes;

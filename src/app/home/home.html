@@ -2,8 +2,16 @@
 @if (filteredNotes().length === 0) {
 <p class="no-notes">Nenhuma nota encontrada</p>
 } @if (viewMode() === 'list') {
-<notes-list [notes]="filteredNotes()" (onDelete)="deleteNote($event)" />
+<notes-list
+  [notes]="filteredNotes()"
+  (onTogglePin)="togglePin($event)"
+  (onDelete)="deleteNote($event)"
+/>
 } @else if (viewMode() === 'grid') {
-<notes-grid [notes]="filteredNotes()" />
+<notes-grid
+  [notes]="filteredNotes()"
+  (onTogglePin)="togglePin($event)"
+  (onDelete)="deleteNote($event)"
+/>
 }
 <router-outlet></router-outlet>
