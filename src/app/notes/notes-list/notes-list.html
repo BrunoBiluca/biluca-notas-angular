@@ -1,34 +1,56 @@
-@if(pinnedNotes().length > 0) {
+@if(pinnedNotes.length > 0) {
 <h3>{{ "Fixadas" | uppercase }}</h3>
-<ul id="pinned-notes" class="notes-list">
-  @for(note of pinnedNotes(); track note.id) {
-  <ng-container
-    *ngTemplateOutlet="
-      noteTemplate;
-      context: { $implicit: note, $index: note.id }
-    "
-  ></ng-container>
+<div
+  id="pinned-notes"
+  class="notes-list"
+  cdkDropList
+  (cdkDropListDropped)="drop($event, pinnedNotes)"
+>
+  @for(note of pinnedNotes; track note.id) {
+  <div
+    cdkDrag
+    (cdkDragStarted)="isDragging.set(true)"
+    (cdkDragEnded)="handleDragEnd($event)"
+  >
+    <ng-container
+      *ngTemplateOutlet="
+        noteTemplate;
+        context: { $implicit: note, $index: note.id }
+      "
+    ></ng-container>
+  </div>
   }
-</ul>
+</div>
 }
 <h3>{{ "Outras" | uppercase }}</h3>
-<ul id="other-notes" class="notes-list">
-  @for(note of otherNotes(); track note.id) {
-  <ng-container
-    *ngTemplateOutlet="
-      noteTemplate;
-      context: { $implicit: note, $index: note.id }
-    "
-  ></ng-container>
+<div
+  cdkDropList
+  id="other-notes"
+  class="notes-list"
+  (cdkDropListDropped)="drop($event, otherNotes)"
+>
+  @for(note of otherNotes; track note.id) {
+  <div
+    cdkDrag
+    (cdkDragStarted)="isDragging.set(true)"
+    (cdkDragEnded)="handleDragEnd($event)"
+  >
+    <ng-container
+      *ngTemplateOutlet="
+        noteTemplate;
+        context: { $implicit: note, $index: note.id }
+      "
+    ></ng-container>
+  </div>
   }
-</ul>
+</div>
 
 <ng-template #noteTemplate let-note let-index="index">
   <mat-card
     appearance="outlined"
     class="note-item"
     [style]="getStyleByColor(note)"
-    (click)="goToNoteDetail(note)"
+    (click)="isDragging() ? null : goToNoteDetail(note)"
   >
     @if(note.images.length > 0) {
     <div class="note-images">

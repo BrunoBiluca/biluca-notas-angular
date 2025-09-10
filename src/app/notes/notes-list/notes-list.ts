@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NotesPresenter } from '../notes-presenter';
 import { MatIconModule } from '@angular/material/icon';
 import { FileToURLPipe } from 'common/file-to-url-pipe';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'notes-list',
@@ -15,6 +16,8 @@ import { FileToURLPipe } from 'common/file-to-url-pipe';
     MatButtonModule,
     MatIconModule,
     FileToURLPipe,
+    CdkDrag,
+    CdkDropList,
   ],
   templateUrl: './notes-list.html',
   styleUrl: './notes-list.scss',
