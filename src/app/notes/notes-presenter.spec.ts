@@ -46,17 +46,12 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
         providers: [provideRouter(routes)],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(classType);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-
       router = TestBed.inject(Router);
       spyOn(router, 'navigate');
     });
 
-    it('should display notes as a list', () => {
-      component.notes = mockNotes();
-      fixture.detectChanges();
+    it('should display notes', () => {
+      createComponent(mockNotes());
 
       expect(fixture.nativeElement.querySelectorAll('.note-item').length).toBe(
         2
@@ -64,20 +59,16 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
     });
 
     it('should display pinned notes in pinned area', () => {
-      component.notes = mockNotes();
-
-      fixture.detectChanges();
+      createComponent(mockNotes());
 
       const pinnedList = fixture.nativeElement.querySelector('#pinned-notes');
       expect(pinnedList.querySelectorAll('.note-item').length).toBe(1);
     });
 
     it('should display unpinned notes in others notes area', () => {
-      const onTogglePin = spyOn(component.onTogglePin, 'emit');
       const notes = mockNotes();
-      component.notes = notes;
-
-      fixture.detectChanges();
+      createComponent(notes);
+      const onTogglePin = spyOn(component.onTogglePin, 'emit');
 
       const pinnedNoteButton = fixture.nativeElement
         .querySelector('#pinned-notes')
@@ -91,9 +82,7 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
 
     it("should show note's details when note is clicked", () => {
       const notes = mockNotes();
-      component.notes = notes;
-
-      fixture.detectChanges();
+      createComponent(notes);
 
       fixture.nativeElement
         .querySelector('.note-item')
@@ -103,5 +92,12 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
 
       expect(router.navigate).toHaveBeenCalledWith(['/notes', notes[0].id]);
     });
+
+    function createComponent(initNotes: Note[]) {
+      fixture = TestBed.createComponent(classType);
+      component = fixture.componentInstance;
+      component.notes = initNotes;
+      fixture.detectChanges();
+    }
   });
 }
