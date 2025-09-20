@@ -21,6 +21,6 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     CdkDropList,
   ],
   templateUrl: `grid.html`,
-  styleUrls: ['grid.scss'],
+  styleUrls: ['grid.scss', '../drag-n-drop.scss'],
 })
 export class Grid extends NotesPresenter {}

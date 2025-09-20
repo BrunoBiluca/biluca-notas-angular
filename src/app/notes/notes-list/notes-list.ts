@@ -20,6 +20,6 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     CdkDropList,
   ],
   templateUrl: './notes-list.html',
-  styleUrl: './notes-list.scss',
+  styleUrls: ['./notes-list.scss', '../drag-n-drop.scss'],
 })
 export class NotesList extends NotesPresenter {}
