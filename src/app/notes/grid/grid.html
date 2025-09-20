@@ -1,21 +1,45 @@
 @if(pinnedNotes.length > 0) {
 <h3>{{ "Fixadas" | uppercase }}</h3>
 
-<div cols="3" rowHeight="1:1" id="pinned-notes" class="grid">
+<div
+  id="pinned-notes"
+  class="grid"
+  cdkDropList
+  cdkDropListOrientation="mixed"
+  (cdkDropListDropped)="drop($event, pinnedNotes)"
+>
   @for (n of pinnedNotes; track n.id) {
-  <ng-content
-    *ngTemplateOutlet="noteTemplate; context: { $implicit: n, $index: n.id }"
-  ></ng-content>
+  <div
+    cdkDrag
+    (cdkDragStarted)="isDragging.set(true)"
+    (cdkDragEnded)="handleDragEnd($event)"
+  >
+    <ng-container
+      *ngTemplateOutlet="noteTemplate; context: { $implicit: n, $index: n.id }"
+    ></ng-container>
+  </div>
   }
 </div>
 }
 
 <h3>{{ "Outras" | uppercase }}</h3>
-<div cols="3" rowHeight="1:1" id="other-notes" class="grid">
+<div
+  id="other-notes"
+  class="grid"
+  cdkDropList
+  cdkDropListOrientation="mixed"
+  (cdkDropListDropped)="drop($event, otherNotes)"
+>
   @for (n of otherNotes; track n.id) {
-  <ng-content
-    *ngTemplateOutlet="noteTemplate; context: { $implicit: n, $index: n.id }"
-  ></ng-content>
+  <div
+    cdkDrag
+    (cdkDragStarted)="isDragging.set(true)"
+    (cdkDragEnded)="handleDragEnd($event)"
+  >
+    <ng-container
+      *ngTemplateOutlet="noteTemplate; context: { $implicit: n, $index: n.id }"
+    ></ng-container>
+  </div>
   }
 </div>
 
