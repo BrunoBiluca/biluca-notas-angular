@@ -34,7 +34,7 @@ export class NotesService {
 
   private updateNotes() {
     this.notes = this.notes.sort(this.orderFunc);
-    this.notesSubject.next(this.notes);
+    this.notesSubject.next([...this.notes]);
   }
 
   async getAll(): Promise<Note[]> {
