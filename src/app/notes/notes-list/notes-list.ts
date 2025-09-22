@@ -6,6 +6,7 @@ import { NotesPresenter } from '../notes-presenter';
 import { MatIconModule } from '@angular/material/icon';
 import { FileToURLPipe } from 'common/file-to-url-pipe';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'notes-list',
@@ -18,7 +19,9 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     FileToURLPipe,
     CdkDrag,
     CdkDropList,
-  ],
+    RouterLink,
+    RouterLinkActive
+],
   templateUrl: './notes-list.html',
   styleUrls: ['./notes-list.scss', '../drag-n-drop.scss'],
 })

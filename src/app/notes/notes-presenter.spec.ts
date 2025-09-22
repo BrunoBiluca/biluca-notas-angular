@@ -1,8 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
 import { NotesPresenter } from './notes-presenter';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter, RouterModule } from '@angular/router';
 import { Note } from './services/note.model';
 import { routes } from 'app/app.routes';
+import { Location } from '@angular/common';
+import { UserService } from 'app/auth/user-service';
 
 type ClassType<T> = new (...args: any[]) => T;
 
@@ -12,7 +19,8 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
   let component: T;
   let fixture: ComponentFixture<T>;
 
-  let router: Router;
+  let location: Location;
+
   const mockNotes = (): Note[] => [
     {
       id: '1',
@@ -40,14 +48,16 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
   ];
 
   describe('NotesPresenter', () => {
+    let userService = jasmine.createSpyObj('UserService', ['isLoggedIn']);
+    userService.isLoggedIn.and.callFake(() => true);
+    
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [classType],
-        providers: [provideRouter(routes)],
+        imports: [classType, RouterModule.forRoot(routes)],
+        providers: [{ provide: UserService, useValue: userService }],
       }).compileComponents();
 
-      router = TestBed.inject(Router);
-      spyOn(router, 'navigate');
+      location = TestBed.inject(Location);
     });
 
     it('should display notes', () => {
@@ -80,7 +90,7 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
       expect(onTogglePin).toHaveBeenCalledWith(notes[0]);
     });
 
-    it("should show note's details when note is clicked", () => {
+    it("should show note's details when note is clicked", fakeAsync(() => {
       const notes = mockNotes();
       createComponent(notes);
 
@@ -88,10 +98,11 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
         .querySelector('.note-item')
         .dispatchEvent(new Event('click'));
 
+      flush();
       fixture.detectChanges();
 
-      expect(router.navigate).toHaveBeenCalledWith(['/notes', notes[0].id]);
-    });
+      expect(location.path()).toBe('/notes/' + notes[0].id);
+    }));
 
     function createComponent(initNotes: Note[]) {
       fixture = TestBed.createComponent(classType);

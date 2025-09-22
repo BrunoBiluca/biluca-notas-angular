@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FileToURLPipe } from 'common/file-to-url-pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'notes-grid',
@@ -19,6 +20,8 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     FileToURLPipe,
     CdkDrag,
     CdkDropList,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: `grid.html`,
   styleUrls: ['grid.scss', '../drag-n-drop.scss'],

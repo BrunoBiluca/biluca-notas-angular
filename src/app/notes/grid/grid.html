@@ -48,7 +48,8 @@
     appearance="outlined"
     class="note-item"
     [style]="getStyleByColor(note)"
-    (click)="goToNoteDetail(note)"
+    routerLink="/notes/{{ note.id }}"
+    [routerLinkActive]="!isDragging() ? 'active' : ''"
   >
     @if(note.images.length > 0) {
     <div class="note-images">

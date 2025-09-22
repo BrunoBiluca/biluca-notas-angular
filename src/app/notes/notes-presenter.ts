@@ -21,8 +21,6 @@ import {
   template: '',
 })
 export abstract class NotesPresenter implements OnInit, OnChanges {
-  router = inject(Router);
-
   @Input() notes: Note[] = [];
 
   @Output() onTogglePin = new EventEmitter<Note>();
@@ -46,10 +44,6 @@ export abstract class NotesPresenter implements OnInit, OnChanges {
   private updateNotes(notes: Note[]) {
     this.pinnedNotes = notes.filter((note) => note.isPinned);
     this.otherNotes = notes.filter((note) => !note.isPinned);
-  }
-
-  goToNoteDetail(note: Note) {
-    this.router.navigate(['/notes', note.id]);
   }
 
   getStyleByColor(note: Note) {

@@ -6,6 +6,8 @@ import { NotesViewModeService } from 'app/notes/services/notes-view-mode-service
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Note } from 'app/notes/services/note.model';
 import { NoteSearch } from 'app/notes/services/note-search';
+import { RouterModule } from '@angular/router';
+import { routes } from 'app/app.routes';
 
 describe('Home', () => {
   let component: Home;
@@ -29,7 +31,7 @@ describe('Home', () => {
     noteSearch.current$.and.callFake(() => searchTerm.asObservable());
 
     await TestBed.configureTestingModule({
-      imports: [Home],
+      imports: [Home, RouterModule.forRoot(routes)],
       providers: [
         { provide: NotesService, useValue: notesService },
         { provide: NotesViewModeService, useValue: notesViewModeService },
@@ -62,7 +64,7 @@ describe('Home', () => {
           updated_at: new Date(),
           user: 'bruno',
         },
-      ]
+      ];
       notesSubject.next(notes);
       return Promise.resolve(notes);
     });
