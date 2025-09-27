@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Note } from 'app/notes/services/note.model';
 import { NotesService } from 'app/notes/services/notes-service';
 
 @Component({
   selector: 'app-toggle-pin',
-  imports: [CommonModule, MatIcon, MatIconButton],
+  imports: [CommonModule, MatIcon, MatIconButton, MatTooltip],
   templateUrl: './toggle-pin.html',
   styleUrl: './toggle-pin.scss',
 })

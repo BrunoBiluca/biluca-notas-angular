@@ -1,11 +1,14 @@
+@let isPinned = note().isPinned;
+
 <button
   matIconButton
+  [matTooltip]="isPinned ? 'Desfixar' : 'Fixar'"
   data-action="toggle-pin"
   class="control"
-  [ngClass]="!note().isPinned ? 'startHidden' : ''"
+  [ngClass]="isPinned ? 'startHidden' : ''"
   (click)="togglePin($event)"
 >
-  @if(note().isPinned) {
+  @if(isPinned) {
   <mat-icon>push_pin</mat-icon>
   } @else {
   <span class="material-icons">
