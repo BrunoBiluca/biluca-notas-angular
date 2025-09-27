@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TogglePin } from "../actions/toggle-pin/toggle-pin";
+import { Delete } from "../actions/delete/delete";
 
 @Component({
   selector: 'notes-grid',
@@ -23,7 +24,8 @@ import { TogglePin } from "../actions/toggle-pin/toggle-pin";
     CdkDropList,
     RouterLink,
     RouterLinkActive,
-    TogglePin
+    TogglePin,
+    Delete
 ],
   templateUrl: `grid.html`,
   styleUrls: ['grid.scss', '../drag-n-drop.scss'],
