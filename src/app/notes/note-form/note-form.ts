@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NoteColorInput } from './note-color-input/note-color-input';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'note-form',
@@ -28,7 +29,8 @@ import { NoteColorInput } from './note-color-input/note-color-input';
     CommonModule,
     MatIconModule,
     NoteColorInput,
-  ],
+    MatTooltip
+],
   templateUrl: `note-form.html`,
   styleUrl: `note-form.scss`,
 })

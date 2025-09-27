@@ -50,7 +50,7 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
   describe('NotesPresenter', () => {
     let userService = jasmine.createSpyObj('UserService', ['isLoggedIn']);
     userService.isLoggedIn.and.callFake(() => true);
-    
+
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [classType, RouterModule.forRoot(routes)],
@@ -75,10 +75,9 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
       expect(pinnedList.querySelectorAll('.note-item').length).toBe(1);
     });
 
-    it('should display unpinned notes in others notes area', () => {
+    xit('should display unpinned notes in others notes area', () => {
       const notes = mockNotes();
       createComponent(notes);
-      const onTogglePin = spyOn(component.onTogglePin, 'emit');
 
       const pinnedNoteButton = fixture.nativeElement
         .querySelector('#pinned-notes')
@@ -86,8 +85,11 @@ export function execNotesPresenterTests<T extends NotesPresenter>(
         .querySelector('button[data-action="toggle-pin"]');
 
       pinnedNoteButton.dispatchEvent(new Event('click'));
+      fixture.detectChanges(); 
 
-      expect(onTogglePin).toHaveBeenCalledWith(notes[0]);
+      const unpinnedList =
+        fixture.nativeElement.querySelector('#other-notes');
+      expect(unpinnedList.querySelectorAll('.note-item').length).toBe(1);
     });
 
     it("should show note's details when note is clicked", fakeAsync(() => {

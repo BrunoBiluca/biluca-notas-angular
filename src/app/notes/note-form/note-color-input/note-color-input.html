@@ -6,7 +6,12 @@
     [(ngModel)]="color"
     (ngModelChange)="update()"
   />
-  <button type="button" matIconButton (click)="colorInput.click()">
+  <button
+    type="button"
+    matIconButton
+    matTooltip="Escolher cor"
+    (click)="colorInput.click()"
+  >
     <mat-icon>color_lens</mat-icon>
   </button>
 </div>

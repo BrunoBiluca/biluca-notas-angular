@@ -4,13 +4,11 @@
 } @if (viewMode() === 'list') {
 <notes-list
   [notes]="filteredNotes()"
-  (onTogglePin)="togglePin($event)"
   (onDelete)="deleteNote($event)"
 />
 } @else if (viewMode() === 'grid') {
 <notes-grid
   [notes]="filteredNotes()"
-  (onTogglePin)="togglePin($event)"
   (onDelete)="deleteNote($event)"
 />
 }

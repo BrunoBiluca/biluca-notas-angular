@@ -1,7 +1,6 @@
 import {
   Component,
   EventEmitter,
-  inject,
   Input,
   OnChanges,
   OnInit,
@@ -10,7 +9,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Note } from './services/note.model';
-import { Router } from '@angular/router';
 import {
   CdkDragDrop,
   CdkDragEnd,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NotesPresenter } from '../notes-presenter';
 import { MatCardModule } from '@angular/material/card';
@@ -8,6 +8,7 @@ import { FileToURLPipe } from 'common/file-to-url-pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TogglePin } from "../actions/toggle-pin/toggle-pin";
 
 @Component({
   selector: 'notes-grid',
@@ -22,7 +23,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     CdkDropList,
     RouterLink,
     RouterLinkActive,
-  ],
+    TogglePin
+],
   templateUrl: `grid.html`,
   styleUrls: ['grid.scss', '../drag-n-drop.scss'],
 })
