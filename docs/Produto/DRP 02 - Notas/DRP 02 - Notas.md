@@ -88,6 +88,12 @@ nota = {
 
 - [[RNF 01 - Carregamento de grande quantidade de Notas]]
 
+## Ferramentas de desenvolvimento
+
+Para auxiliar o desenvolvimento do projeto, algumas ferramentas serão utilizadas para testar o fluxo da aplicação.
+
+- Criação de Notas em lotes
+
 # Esboços ou protótipos de UX
 
 #### Alteração entre modos de exibição
