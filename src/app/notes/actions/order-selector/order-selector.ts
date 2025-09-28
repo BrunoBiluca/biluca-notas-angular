@@ -2,8 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { NotesService } from '../services/notes-service';
-import { Note } from '../services/note.model';
+import { NotesService } from '../../services/notes-service';
+import { Note } from '../../services/note.model';
 
 interface OrderType {
   key: string;

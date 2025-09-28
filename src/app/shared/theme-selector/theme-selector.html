@@ -1,0 +1,13 @@
+<button matIconButton [matMenuTriggerFor]="menu" matTooltip="Escolher tema">
+  <mat-icon> format_color_fill </mat-icon>
+</button>
+<mat-menu #menu="matMenu" class="menu">
+  @for (t of themes; track t.theme) {
+  <button mat-menu-item (click)="choose(t.theme)">
+    <mat-icon>
+      {{ t.icon }}
+    </mat-icon>
+    <span>{{ t.label }}</span>
+  </button>
+  }
+</mat-menu>

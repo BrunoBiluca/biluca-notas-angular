@@ -1,0 +1,19 @@
+@mixin apply-dark-mode {
+  color-scheme: dark;
+}
+
+@mixin apply-light-mode {
+  color-scheme: light;
+}
+
+html {
+  color-scheme: light dark;
+
+  &.dark-mode {
+    @include apply-dark-mode;
+  }
+
+  &.light-mode {
+    @include apply-light-mode;
+  }
+}
