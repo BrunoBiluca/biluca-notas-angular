@@ -1,16 +1,23 @@
-@mixin apply-dark-mode {
-  color-scheme: dark;
-}
-
 @mixin apply-light-mode {
   color-scheme: light;
+  --mat-button-text-label-text-color: #000000;
+}
+
+@mixin apply-dark-mode {
+  color-scheme: dark;
+  --mat-button-text-label-text-color: #ffffff;
 }
 
 html {
   color-scheme: light dark;
+  --mat-button-text-label-text-color: light-dark(#000000, #ffffff);
 
   &.dark-mode {
     @include apply-dark-mode;
+
+    .adapt-dark-image {
+      filter: invert(1);
+    }
   }
 
   &.light-mode {

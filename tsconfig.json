@@ -4,6 +4,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@app/*": ["app/*"],
+      "@shared/*": ["app/shared/*"],
+      "@environments/*": ["environments/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

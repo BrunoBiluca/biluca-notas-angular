@@ -1,13 +1,21 @@
 <button matIconButton [matMenuTriggerFor]="menu">
   <mat-icon>
-    <img [src]="currentOrder().icon" style="height: 24px; width: 24px" />
+    <img
+      class="adapt-dark-image"
+      [src]="currentOrder().icon"
+      style="height: 24px; width: 24px"
+    />
   </mat-icon>
 </button>
 <mat-menu #menu="matMenu" class="menu">
   @for (orderType of orders; track orderType.key) {
   <button mat-menu-item (click)="chooseOrder(orderType.key)">
     <mat-icon>
-      <img [src]="orderType.icon" style="height: 24px; width: 24px" />
+      <img
+        class="adapt-dark-image"
+        [src]="orderType.icon"
+        style="height: 24px; width: 24px"
+      />
     </mat-icon>
     <span>{{ orderType.title }}</span>
   </button>

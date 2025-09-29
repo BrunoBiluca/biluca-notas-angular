@@ -9,15 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatButtonModule, MatIconModule],
   template: `
     <button matButton (click)="logout()" class="logout">
-      <mat-icon>logout</mat-icon> 
+      <mat-icon>logout</mat-icon>
       <span>Sair</span>
     </button>
   `,
-  styles: `
-    .mat-mdc-button.logout {
-      color: black;
-    }
-  `
 })
 export class Logout {
   userService = inject(UserService);

@@ -3,7 +3,7 @@ import { Logout } from 'app/auth/logout/logout';
 import { ViewModeSelector } from 'app/notes/view-mode-selector/view-mode-selector';
 import { Search } from 'app/notes/actions/search/search';
 import { OrderSelector } from 'app/notes/actions/order-selector/order-selector';
-import { ThemeSelector } from "../theme-selector/theme-selector";
+import { ThemeSelector } from "@shared/theme-selector/theme-selector";
 
 @Component({
   selector: 'app-header',
