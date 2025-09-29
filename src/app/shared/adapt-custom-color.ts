@@ -13,7 +13,7 @@ import {
   calculateLuminanceRGB,
   invertHex,
   parseRGB,
-} from '../../common/colors-functions';
+} from '@common/colors-functions';
 import { Theme } from '@app/shared/theme-selector/theme.service';
 
 @Directive({
