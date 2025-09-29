@@ -7,8 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { FileToURLPipe } from 'common/file-to-url-pipe';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TogglePin } from "../actions/toggle-pin/toggle-pin";
-import { Delete } from "../actions/delete/delete";
+import { TogglePin } from '../actions/toggle-pin/toggle-pin';
+import { Delete } from '../actions/delete/delete';
+import { AdaptCustomColor } from '@app/shared/adapt-custom-color';
 
 @Component({
   selector: 'notes-list',
@@ -24,8 +25,9 @@ import { Delete } from "../actions/delete/delete";
     RouterLink,
     RouterLinkActive,
     TogglePin,
-    Delete
-],
+    Delete,
+    AdaptCustomColor,
+  ],
   templateUrl: './notes-list.html',
   styleUrls: ['./notes-list.scss', '../drag-n-drop.scss'],
 })

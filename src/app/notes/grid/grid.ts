@@ -8,8 +8,9 @@ import { FileToURLPipe } from 'common/file-to-url-pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TogglePin } from "../actions/toggle-pin/toggle-pin";
-import { Delete } from "../actions/delete/delete";
+import { TogglePin } from '../actions/toggle-pin/toggle-pin';
+import { Delete } from '../actions/delete/delete';
+import { AdaptCustomColor } from '@app/shared/adapt-custom-color';
 
 @Component({
   selector: 'notes-grid',
@@ -25,8 +26,9 @@ import { Delete } from "../actions/delete/delete";
     RouterLink,
     RouterLinkActive,
     TogglePin,
-    Delete
-],
+    Delete,
+    AdaptCustomColor,
+  ],
   templateUrl: `grid.html`,
   styleUrls: ['grid.scss', '../drag-n-drop.scss'],
 })

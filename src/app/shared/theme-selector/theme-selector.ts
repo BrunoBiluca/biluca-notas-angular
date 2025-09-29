@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
+import { Theme } from './theme.service';
 
 @Component({
   selector: 'theme-selector',
@@ -11,33 +12,13 @@ import { MatTooltip } from '@angular/material/tooltip';
   styleUrl: './theme-selector.scss',
 })
 export class ThemeSelector implements OnInit {
-  themes = [
-    {
-      theme: 'dark-mode',
-      label: 'Dark mode',
-      icon: 'dark_mode',
-    },
-    { theme: 'light-mode', label: 'Light mode', icon: 'light_mode' },
-    { theme: 'system', label: 'Adaptar ao sistema', icon: 'settings_suggest' },
-  ];
+  themeService = inject(Theme);
 
   ngOnInit(): void {
-    const theme = localStorage.getItem('theme');
-    if (theme) {
-      this.choose(theme);
-    }
+    this.themeService.init();
   }
 
   choose(theme: string) {
-    localStorage.setItem('theme', theme);
-    document.documentElement.classList.remove(
-      ...this.themes.filter((t) => t.theme !== 'system').map((t) => t.theme)
-    );
-
-    if (theme === 'system') {
-      return;
-    }
-
-    document.documentElement.classList.add(theme);
+    this.themeService.change(theme);
   }
 }

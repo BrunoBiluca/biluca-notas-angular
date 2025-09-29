@@ -2,7 +2,7 @@
   <div
     class="modal-content"
     (click)="$event.stopPropagation()"
-    [style]="{ 'background-color': color() }"
+    [adaptCustomColor]="color()"
   >
     <button matIconButton class="close-button" (click)="closeModal()">
       <mat-icon>close</mat-icon>
@@ -17,12 +17,14 @@
     }
     <div class="note-details">
       <input
+        name="title"
         class="input-text title"
         type="text"
         [(ngModel)]="title"
         (ngModelChange)="save()"
       />
       <input
+        name="content"
         class="input-text content"
         type="text"
         [(ngModel)]="content"
@@ -34,7 +36,10 @@
       </div>
     </div>
     <div class="controls">
-      <note-color-input [color]="color()" (onColorChange)="updateColor($event)"></note-color-input>
+      <note-color-input
+        [color]="color()"
+        (onColorChange)="updateColor($event)"
+      ></note-color-input>
     </div>
     }
   </div>

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { NotesService } from '../services/notes-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { NoteColorInput } from '../note-form/note-color-input/note-color-input';
+import { calculateLuminanceHex } from '@common/colors-functions';
+import { AdaptCustomColor } from "@app/shared/adapt-custom-color";
 
 @Component({
   selector: 'note-detail',
@@ -17,7 +19,8 @@ import { NoteColorInput } from '../note-form/note-color-input/note-color-input';
     MatIconModule,
     FormsModule,
     NoteColorInput,
-  ],
+    AdaptCustomColor
+],
   templateUrl: './note-detail.html',
   styleUrl: './note-detail.scss',
 })

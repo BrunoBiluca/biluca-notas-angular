@@ -44,15 +44,6 @@ export abstract class NotesPresenter implements OnInit, OnChanges {
     this.otherNotes = notes.filter((note) => !note.isPinned);
   }
 
-  getStyleByColor(note: Note) {
-    return note.color === null ||
-      note.color === 'white' ||
-      note.color === '#ffffff' ||
-      note.color === 'rgb(255, 255, 255)'
-      ? 'border: 1px solid #868686'
-      : 'background-color: ' + note.color + '; border: 1px solid ' + note.color;
-  }
-
   drop(event: CdkDragDrop<any, any, any>, list: Note[]) {
     moveItemInArray(list, event.previousIndex, event.currentIndex);
   }

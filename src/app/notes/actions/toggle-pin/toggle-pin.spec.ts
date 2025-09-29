@@ -8,12 +8,12 @@ describe('TogglePin', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TogglePin]
-    })
-    .compileComponents();
+      imports: [TogglePin],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TogglePin);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('note', {});
     fixture.detectChanges();
   });
 

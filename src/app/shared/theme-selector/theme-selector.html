@@ -2,7 +2,7 @@
   <mat-icon> format_color_fill </mat-icon>
 </button>
 <mat-menu #menu="matMenu" class="menu">
-  @for (t of themes; track t.theme) {
+  @for (t of themeService.themes; track t.theme) {
   <button mat-menu-item (click)="choose(t.theme)">
     <mat-icon>
       {{ t.icon }}

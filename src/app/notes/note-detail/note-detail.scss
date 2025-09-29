@@ -51,7 +51,6 @@
   .input-text {
     display: block;
     width: 100%;
-    color: #333;
     background-color: transparent;
     border: 0;
     outline: 0;
@@ -92,4 +91,26 @@
   padding: 2rem;
 }
 
+.bg-light {
+  color: black;
 
+  * {
+    color: #333;
+  }
+
+  ::ng-deep * {
+    color: #333;
+  }
+}
+
+.bg-dark {
+  color: white;
+
+  * {
+    color: white;
+  }
+
+  ::ng-deep * {
+    color: white;
+  }
+}

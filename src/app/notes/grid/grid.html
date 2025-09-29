@@ -47,7 +47,7 @@
   <mat-card
     appearance="outlined"
     class="note-item"
-    [style]="getStyleByColor(note)"
+    [adaptCustomColor]="note.color"
     routerLink="/notes/{{ note.id }}"
     [routerLinkActive]="!isDragging() ? 'active' : ''"
   >
