@@ -66,27 +66,3 @@ h3 {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
-
-.bg-light {
-  color: black;
-
-  * {
-    color: #333;
-  }
-
-  ::ng-deep * {
-    color: #333;
-  }
-}
-
-.bg-dark {
-  color: white;
-
-  * {
-    color: white;
-  }
-
-  ::ng-deep * {
-    color: white;
-  }
-}

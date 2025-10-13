@@ -10,7 +10,7 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TogglePin } from '../actions/toggle-pin/toggle-pin';
 import { Delete } from '../actions/delete/delete';
-import { AdaptCustomColor } from '@app/shared/adapt-custom-color';
+import { AdaptCustomColor } from '@app/shared/adapt-custom-color/adapt-custom-color';
 
 @Component({
   selector: 'notes-grid',
@@ -30,6 +30,10 @@ import { AdaptCustomColor } from '@app/shared/adapt-custom-color';
     AdaptCustomColor,
   ],
   templateUrl: `grid.html`,
-  styleUrls: ['grid.scss', '../drag-n-drop.scss'],
+  styleUrls: [
+    'grid.scss',
+    '../drag-n-drop.scss',
+    '/src/app/shared/adapt-custom-color/adapt-custom-color.scss',
+  ],
 })
 export class Grid extends NotesPresenter {}

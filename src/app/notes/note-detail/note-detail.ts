@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { NoteColorInput } from '../note-form/note-color-input/note-color-input';
 import { calculateLuminanceHex } from '@common/colors-functions';
-import { AdaptCustomColor } from "@app/shared/adapt-custom-color";
+import { AdaptCustomColor } from "@app/shared/adapt-custom-color/adapt-custom-color";
 
 @Component({
   selector: 'note-detail',

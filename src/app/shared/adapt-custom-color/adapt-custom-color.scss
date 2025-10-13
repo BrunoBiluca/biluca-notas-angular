@@ -1,0 +1,23 @@
+.bg-light {
+  color: black;
+
+  * {
+    color: #333;
+  }
+
+  ::ng-deep * {
+    color: #333;
+  }
+}
+
+.bg-dark {
+  color: white;
+
+  * {
+    color: white;
+  }
+
+  ::ng-deep * {
+    color: white;
+  }
+}
