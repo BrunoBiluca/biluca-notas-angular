@@ -37,39 +37,21 @@ O controle de acesso garante que o usuário está registrado na plataforma antes
 
 # Requisitos
 
-**Índice**
-
 - [[RF 01 - Cadastro de usuário]]
 - [[RF 02 - Login]]
 - [[RF 03 - Logout]]
-- [[RF 04 - Rota protegida com usuário não autenticado]]
+- [[RNF 01 - Rota protegida com usuário não autenticado]]
 
 # Especificação de arquitetura
 
-#### Configuração pré-estabelecida
+### Requisitos não funcionais
 
-Será definida uma configuração pré-estabelecida em nível de projeto de usuários registrados que podem fazer o login.
+- [[RNF 01 - Rota protegida com usuário não autenticado]]
 
-```js
-// Exemplo de configuração de usuários
-const users = [
-  {
-    id: 1,
-    email: "admin@example.com",
-    password: "admin123",
-  },
-  {
-    id: 2,
-    email: "user@example.com",
-    password: "user123",
-  },
-  {
-    id: 3,
-    email: "inactive@example.com",
-    password: "teste123",
-  },
-];
-```
+### Armazenamento local
+
+> [!warning] Atualizar após a implementação, servirá de referência
+
 
 
 # Esboços ou protótipos de UX
