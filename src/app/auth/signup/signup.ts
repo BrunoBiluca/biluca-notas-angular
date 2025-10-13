@@ -32,7 +32,7 @@ export class Signup {
   nonExistingUserValidator = inject(NonExistingUserValidator);
   username = new FormControl('', [
     Validators.required,
-    this.nonExistingUserValidator.check(),
+    this.nonExistingUserValidator.check,
   ]);
   usernameError = signal('');
   email = new FormControl('', [Validators.required, Validators.email]);
