@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { Signup } from './auth/signup/signup';
 import { Login } from './auth/login/login';
-import { Home } from './home/home';
+import { Home } from './notes-page/home';
 import { authGuard } from './auth/auth-guard';
-import { Layout } from './shared/layout/layout';
+import { Layout as NotesLayout } from './notes-layout/layout';
 import { Layout as AuthLayout } from './auth/layout/layout';
 import { NoteDetail } from './notes/note-detail/note-detail';
 
@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: 'notes',
-    component: Layout,
+    component: NotesLayout,
     canActivate: [authGuard],
     children: [
       {
