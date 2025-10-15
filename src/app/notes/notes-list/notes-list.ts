@@ -32,7 +32,7 @@ import { AdaptCustomColor } from '@app/shared/adapt-custom-color/adapt-custom-co
   styleUrls: [
     './notes-list.scss',
     '../drag-n-drop.scss',
-    '/src/app/shared/adapt-custom-color/adapt-custom-color.scss',
+    '../../shared/adapt-custom-color/adapt-custom-color.scss',
   ],
 })
 export class NotesList extends NotesPresenter {}

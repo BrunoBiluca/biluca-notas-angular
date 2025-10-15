@@ -33,7 +33,7 @@ import { AdaptCustomColor } from '@app/shared/adapt-custom-color/adapt-custom-co
   styleUrls: [
     'grid.scss',
     '../drag-n-drop.scss',
-    '/src/app/shared/adapt-custom-color/adapt-custom-color.scss',
+    '../../shared/adapt-custom-color/adapt-custom-color.scss',
   ],
 })
 export class Grid extends NotesPresenter {}
